@@ -13,7 +13,7 @@ void task1() {
 	int i = 0;
 	while(1) {
 		i++;
-		SetGpio(16, 1);
+		SetGpio(47, 1);
 		vTaskDelay(2000);
 	}
 }
@@ -24,7 +24,7 @@ void task2() {
 	while(1) {
 		i++;
 		vTaskDelay(1000);
-		SetGpio(16, 0);
+		SetGpio(47, 0);
 		vTaskDelay(1000);
 	}
 }
@@ -61,10 +61,11 @@ int main(void) {
     bcm2835_gpio_fsel(23, BCM2835_GPIO_FSEL_ALT2);
     bcm2835_gpio_fsel(24, BCM2835_GPIO_FSEL_ALT2);
 
-	//SetGpioFunction(16, 1);			// RDY led
+    SetGpioFunction(47, 1);			// Act led
+    SetGpioDirection(47, 1);        // Set LED as Output
 
-	//xTaskCreate(task1, "LED_0", 128, NULL, 0, NULL);
-	//xTaskCreate(task2, "LED_1", 128, NULL, 0, NULL);
+	xTaskCreate(task1, "LED_0", 128, NULL, 0, NULL);
+	xTaskCreate(task2, "LED_1", 128, NULL, 0, NULL);
     
     // Create the initialization task
     xTaskCreate(taskInit, "GUI Initialisation", 128, 0, 3, 0);

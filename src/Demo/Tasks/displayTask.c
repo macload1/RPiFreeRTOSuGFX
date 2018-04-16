@@ -91,10 +91,10 @@ void uGFXMain(void)
     
 
 
-    // Code Here
-	gdispDrawBox(10, 10, width/2, height/2, Yellow);
-    gdispFillArea(width/2, height/2, width/2-10, height/2-10, Red);
-    gdispDrawLine(5, 30, width-50, height-40, Blue);
+    //~ // Code Here
+	//~ gdispDrawBox(10, 10, width/2, height/2, Yellow);
+    //~ gdispFillArea(width/2, height/2, width/2-10, height/2-10, Red);
+    //~ gdispDrawLine(5, 30, width-50, height-40, Blue);
 
 	while(1)
 	{
