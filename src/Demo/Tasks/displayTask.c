@@ -1,6 +1,13 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 #include <FreeRTOS.h>
+#include <queue.h>
 
 #include <task.h>
+
+#include "Drivers/bcm2835.h"
+
 
 #include "displayTask.h"
 
@@ -25,68 +32,93 @@ xQueueHandle g_pLCDQueue;
 
 
 /* The handles for three consoles */
-GHandle GW1;
+GHandle GW_global;
+GHandle GW_wifi;
 
 
-void uGFXMain(void)
+
+
+void guiThread()
 {
     coord_t	width, height;
 	// Get the screen size
-    width = gdispGetWidth();
-    height = gdispGetHeight();
-
-    //~ font_t	font1;
-	//~ /* Set some fonts */
-	//~ font1 = gdispOpenFont("UI2");
-	//~ //font1 = gdispOpenFont("DejaVu Sans 12");
-	//~ gwinSetDefaultFont(font1);
+    width = 480; //gdispGetWidth();
+    height = 272; //gdispGetHeight();
     
-    //~ //
-    //~ // Create a queue for sending messages to the LED task.
-    //~ //
-    //~ //g_pLCDQueue = xQueueCreate(LCD_QUEUE_SIZE, LCD_ITEM_SIZE);
-    //~ /* We want this queue to be viewable in a RTOS kernel aware debugger, so register it. */
-	//~ //vQueueAddToRegistry( g_pLCDQueue, "LCDQueue" );
+    bcm2835_aux_muart_transfernb("Entered Display Task\r\n");
+    font_t	font1;
+	/* Set some fonts */
+	//font1 = gdispOpenFont("UI2");
+	font1 = gdispOpenFont("DejaVu Sans 12");
+	gwinSetDefaultFont(font1);
     
+	/* create the console window */
+    GWindowInit	wi;
 
-
-	//~ /* create the console window */
-    //~ GWindowInit	wi;
-
-    //~ wi.show = TRUE;
-    //~ wi.x = 5;
-    //~ wi.y = 5;
-    //~ wi.width = width - 10;
-    //~ wi.height = height - 10;
-    //~ GW1 = gwinConsoleCreate(0, &wi);
+    // Global console
+    wi.show = TRUE;
+    wi.x = 5;
+    wi.y = 5;
+    wi.width = width/2 - 10;
+    wi.height = height - 10;
+    GW_global = gwinConsoleCreate(0, &wi);
+    gdispDrawBox(2, 2, width/2 - 4, height - 4, White);
     
-	//~ /* Use a special font for GW1 */
-	//~ gwinSetFont(GW1, font1);
-	//~ /* Set the fore- and background colors for each console */
-	//~ gwinSetColor(GW1, Green);
-	//~ gwinSetBgColor(GW1, Red);
-	//~ /* clear all console windows - to set background */
-	//~ gwinClear(GW1);
-	//~ /* Output some data on the first console */
-    //~ gwinPrintf(GW1, "Hello World\r\n");
-	//~ gwinPrintf(GW1, "Welcome \033bhuman\033B!\r\n");
+    // WiFi console
+    wi.x = width/2 + 5;
+    wi.y = 5;
+    wi.width = width/2 - 10;
+    wi.height = height - 10;
+    GW_wifi = gwinConsoleCreate(0, &wi);
+    gdispDrawBox(width/2 + 2, 2, width/2 - 4, height - 4, White);
+    
+	/* Use a special font for GW_global */
+	gwinSetFont(GW_global, font1);
+	/* Set the fore- and background colors for each console */
+	gwinSetColor(GW_global, White);
+	gwinSetBgColor(GW_global, Black);
+	/* clear all console windows - to set background */
+	gwinClear(GW_global);
+	/* Output some data on the first console */
+    gwinPrintf(GW_global, "Hello World\r\n");
+	gwinPrintf(GW_global, "Welcome \033bhuman\033B! This is a very long sentence!\r\n");
 
-	//~ //char *Message;
-    //~ //
-    //~ // Loop forever.
-    //~ //
-    //~ while(1)
-    //~ {
+
+    //
+    // Create a queue for sending messages to the LED task.
+    //
+    g_pLCDQueue = xQueueCreate(LCD_QUEUE_SIZE, sizeof( struct AMessage * ) );
+    /* We want this queue to be viewable in a RTOS kernel aware debugger, so register it. */
+	vQueueAddToRegistry( g_pLCDQueue, "LCDQueue" );
+    if( g_pLCDQueue == 0 )
+    {
+        // Failed to create the queue.
+        gwinPrintf(GW_global, "Failed to create the queue.\r\n");
+    }
+
+    //struct AMessage 
+    char message[50];
+    sprintf(message, "Hello %d\r\n", 4);
+    gwinPrintf(GW_wifi, message);
+
+	struct AMessage *pxRxedMessage;
+    //
+    // Loop forever.
+    //
+    while(1)
+    {
     	//
 		// Read the next message, if available on queue.
 		//
-		//~ if(xQueueReceive(g_pLCDQueue, &Message, portMAX_DELAY) == pdPASS)
-		//~ {
-			//~ gwinPrintf(GW1, Message);
-		//~ }
-        //~ vTaskDelay(1000);
-        //~ gwinPrintf(GW1, "Welcome \033bTobias\033B!\r\n");
-    //~ }
+		if(xQueueReceive(g_pLCDQueue, &pxRxedMessage, portMAX_DELAY) == pdPASS)
+		{
+            if(pxRxedMessage->consoleID == CONSOLE_GLOBAL)
+                gwinPrintf(GW_global, pxRxedMessage->message);
+            else if(pxRxedMessage->consoleID == CONSOLE_WIFI)
+                gwinPrintf(GW_wifi, pxRxedMessage->message);
+		}
+        bcm2835_aux_muart_transfernb("looping Display Task\r\n");
+    }
     
     
 
@@ -95,26 +127,21 @@ void uGFXMain(void)
 	//~ gdispDrawBox(10, 10, width/2, height/2, Yellow);
     //~ gdispFillArea(width/2, height/2, width/2-10, height/2-10, Red);
     //~ gdispDrawLine(5, 30, width-50, height-40, Blue);
+    //~ gdispDrawBox(10, 10, width/2, height/2, Yellow);
 
-	while(1)
-	{
-		vTaskDelay(1000);
-        gdispDrawBox(10, 10, width/2, height/2, Yellow);
-		vTaskDelay(1000);
-        gdispFillArea(width/2, height/2, width/2-10, height/2-10, Red);
-		vTaskDelay(1000);
-        gdispDrawLine(5, 30, width-50, height-40, Blue);
+	//~ while(1)
+	//~ {
+		//~ vTaskDelay(1000);
+        //~ gdispDrawBox(10, 10, width/2, height/2, Yellow);
+		//~ vTaskDelay(1000);
+        //~ gdispFillArea(width/2, height/2, width/2-10, height/2-10, Red);
+		//~ vTaskDelay(1000);
+        //~ gdispDrawLine(5, 30, width-50, height-40, Blue);
+        //~ bcm2835_aux_muart_transfernb("looping Display Task\r\n");
         //~ vTaskDelay(1000);
         //~ gdispDrawString(20, 20, "Hello World", font1, Yellow);
-	}
+	//~ }
 
     return;
-}
-
-void taskInit(void* pvParameters)
-{
-    (void)pvParameters;
- 
-    gfxInit();
 }
 

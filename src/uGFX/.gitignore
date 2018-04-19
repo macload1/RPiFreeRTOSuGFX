@@ -10,4 +10,3 @@ build
 *.o
 *.map
 src/gdisp/fonts/*.dat
-docs/html.zip

@@ -5,18 +5,11 @@
  *              http://ugfx.org/license.html
  */
 
-/**
- * @file	src/gwin/gwin.c
- * @brief	GWIN sub-system code
- */
-
-#include "../../gfx.h"
+#include "gfx.h"
 
 #if GFX_USE_GWIN
 
-#include "gwin_class.h"
-
-#include <string.h>
+#include "src/gwin/class_gwin.h"
 
 /*-----------------------------------------------
  * Data
@@ -36,18 +29,6 @@ static color_t	defaultBgColor = Black;
 	static font_t	defaultFont;
 #endif
 
-/* These init functions are defined by each module but not published */
-extern void _gwmInit(void);
-extern void _gwmDeinit(void);
-#if GWIN_NEED_WIDGET
-	extern void _gwidgetInit(void);
-	extern void _gwidgetDeinit(void);
-#endif
-#if GWIN_NEED_CONTAINERS
-	extern void _gcontainerInit(void);
-	extern void _gcontainerDeinit(void);
-#endif
-
 /*-----------------------------------------------
  * Helper Routines
  *-----------------------------------------------*/
@@ -58,24 +39,33 @@ extern void _gwmDeinit(void);
 
 void _gwinInit(void)
 {
-	_gwmInit();
+	extern void _gwmInit(void);
 
+	_gwmInit();
 	#if GWIN_NEED_WIDGET
+		extern void _gwidgetInit(void);
+
 		_gwidgetInit();
 	#endif
-
 	#if GWIN_NEED_CONTAINERS
+		extern void _gcontainerInit(void);
+
 		_gcontainerInit();
 	#endif
 }
 
 void _gwinDeinit(void)
 {
+	extern void _gwmDeinit(void);
+
 	#if GWIN_NEED_CONTAINERS
+		extern void _gcontainerDeinit(void);
+
 		_gcontainerDeinit();
 	#endif
-
 	#if GWIN_NEED_WIDGET
+		extern void _gwidgetDeinit(void);
+
 		_gwidgetDeinit();
 	#endif
 
@@ -102,10 +92,6 @@ GHandle _gwindowCreate(GDisplay *g, GWindowObject *pgw, const GWindowInit *pInit
 		pgw->font = defaultFont;
 	#endif
 
-	// Make sure we don't create nasty problems for ourselves
-	if (vmt->size > sizeof(GWindowObject))
-		memset(pgw+1, 0, vmt->size - sizeof(GWindowObject));
-
 	if (!_gwinWMAdd(pgw, pInit)) {
 		if ((pgw->flags & GWIN_FLG_DYNAMIC))
 			gfxFree(pgw);
@@ -113,40 +99,6 @@ GHandle _gwindowCreate(GDisplay *g, GWindowObject *pgw, const GWindowInit *pInit
 	}
 
 	return (GHandle)pgw;
-}
-
-// Internal routine for use by GWIN components only
-void _gwinDestroy(GHandle gh, GRedrawMethod how) {
-	if (!gh)
-		return;
-
-	// Make the window invisible
-	gwinSetVisible(gh, FALSE);
-
-	// Make sure it is flushed first - must be REDRAW_WAIT or REDRAW_INSESSION
-	_gwinFlushRedraws(how);
-
-	#if GWIN_NEED_CONTAINERS
-		// Notify the parent it is about to be deleted
-		if (gh->parent && ((gcontainerVMT *)gh->parent->vmt)->NotifyDelete)
-			((gcontainerVMT *)gh->parent->vmt)->NotifyDelete(gh->parent, gh);
-	#endif
-
-	// Remove from the window manager
-	#if GWIN_NEED_WINDOWMANAGER
-		_GWINwm->vmt->Delete(gh);
-	#endif
-
-	// Class destroy routine
-	if (gh->vmt->Destroy)
-		gh->vmt->Destroy(gh);
-
-	// Clean up the structure
-	if (gh->flags & GWIN_FLG_DYNAMIC) {
-		gh->flags = 0;							// To be sure, to be sure
-		gfxFree((void *)gh);
-	} else
-		gh->flags = 0;							// To be sure, to be sure
 }
 
 /*-----------------------------------------------
@@ -196,13 +148,38 @@ GHandle gwinGWindowCreate(GDisplay *g, GWindowObject *pgw, const GWindowInit *pI
 		return 0;
 
 	gwinSetVisible(pgw, pInit->show);
-	_gwinFlushRedraws(REDRAW_WAIT);
 
 	return pgw;
 }
 
 void gwinDestroy(GHandle gh) {
-	_gwinDestroy(gh, REDRAW_WAIT);
+	if (!gh)
+		return;
+
+	// Make the window invisible
+	gwinSetVisible(gh, FALSE);
+
+	#if GWIN_NEED_CONTAINERS
+		// Notify the parent it is about to be deleted
+		if (gh->parent && ((gcontainerVMT *)gh->parent->vmt)->NotifyDelete)
+			((gcontainerVMT *)gh->parent->vmt)->NotifyDelete(gh->parent, gh);
+	#endif
+
+	// Remove from the window manager
+	#if GWIN_NEED_WINDOWMANAGER
+		_GWINwm->vmt->Delete(gh);
+	#endif
+
+	// Class destroy routine
+	if (gh->vmt->Destroy)
+		gh->vmt->Destroy(gh);
+
+	// Clean up the structure
+	if (gh->flags & GWIN_FLG_DYNAMIC) {
+		gh->flags = 0;							// To be sure, to be sure
+		gfxFree((void *)gh);
+	} else
+		gh->flags = 0;							// To be sure, to be sure
 }
 
 const char *gwinGetClassName(GHandle gh) {
@@ -281,14 +258,6 @@ void gwinBlitArea(GHandle gh, coord_t x, coord_t y, coord_t cx, coord_t cy, coor
 	}
 #endif
 
-#if GDISP_NEED_DUALCIRCLE
-	void gwinFillDualCircle(GHandle gh, coord_t x, coord_t y, coord_t radius1, coord_t radius2) {
-		if (!_gwinDrawStart(gh)) return;
-		gdispGFillDualCircle(gh->display, gh->x+x, gh->y+y, radius1, gh->bgcolor, radius2, gh->color);
-		_gwinDrawEnd(gh);
-	}
-#endif
-
 #if GDISP_NEED_ELLIPSE
 	void gwinDrawEllipse(GHandle gh, coord_t x, coord_t y, coord_t a, coord_t b) {
 		if (!_gwinDrawStart(gh)) return;
@@ -315,31 +284,11 @@ void gwinBlitArea(GHandle gh, coord_t x, coord_t y, coord_t cx, coord_t cy, coor
 		gdispGFillArc(gh->display, gh->x+x, gh->y+y, radius, startangle, endangle, gh->color);
 		_gwinDrawEnd(gh);
 	}
-
-	void gwinDrawThickArc(GHandle gh, coord_t x, coord_t y, coord_t startradius, coord_t endradius, coord_t startangle, coord_t endangle) {
-		if (!_gwinDrawStart(gh)) return;
-		gdispGDrawThickArc(gh->display, gh->x+x, gh->y+y, startradius, endradius, startangle, endangle, gh->color);
-		_gwinDrawEnd(gh);
-	}
-#endif
-
-#if GDISP_NEED_ARCSECTORS
-	void gwinDrawArcSectors(GHandle gh, coord_t x, coord_t y, coord_t radius, uint8_t sectors) {
-		if (!_gwinDrawStart(gh)) return;
-		gdispGDrawArcSectors(gh->display, gh->x+x, gh->y+y, radius, sectors, gh->color);
-		_gwinDrawEnd(gh);
-	}
-
-	void gwinFillArcSectors(GHandle gh, coord_t x, coord_t y, coord_t radius, uint8_t sectors) {
-		if (!_gwinDrawStart(gh)) return;
-		gdispGFillArcSectors(gh->display, gh->x+x, gh->y+y, radius, sectors, gh->color);
-		_gwinDrawEnd(gh);
-	}
 #endif
 
 #if GDISP_NEED_PIXELREAD
 	color_t gwinGetPixelColor(GHandle gh, coord_t x, coord_t y) {
-		if (!_gwinDrawStart(gh)) return (color_t)0;
+		if (!_gwinDrawStart(gh)) return;
 		return gdispGGetPixelColor(gh->display, gh->x+x, gh->y+y);
 		_gwinDrawEnd(gh);
 	}
@@ -393,11 +342,6 @@ void gwinBlitArea(GHandle gh, coord_t x, coord_t y, coord_t cx, coord_t cy, coor
 	void gwinFillConvexPoly(GHandle gh, coord_t tx, coord_t ty, const point *pntarray, unsigned cnt) {
 		if (!_gwinDrawStart(gh)) return;
 		gdispGFillConvexPoly(gh->display, tx+gh->x, ty+gh->y, pntarray, cnt, gh->color);
-		_gwinDrawEnd(gh);
-	}
-	void gwinDrawThickLine(GHandle gh, coord_t x0, coord_t y0, coord_t x1, coord_t y1, coord_t width, bool_t round) {
-		if (!_gwinDrawStart(gh)) return;
-		gdispGDrawThickLine(gh->display, gh->x+x0, gh->y+y0, gh->x+x1, gh->y+y1, gh->color, width, round);
 		_gwinDrawEnd(gh);
 	}
 #endif

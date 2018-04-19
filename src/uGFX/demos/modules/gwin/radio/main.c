@@ -83,6 +83,9 @@ int main(void) {
 	gwinSetDefaultStyle(&WhiteWidgetStyle, FALSE);
 	gdispClear(White);
 
+	// Attach the mouse input
+	gwinAttachMouse(0);
+
 	// create the widget
 	createWidgets();
 
@@ -96,7 +99,7 @@ int main(void) {
 
 		switch(pe->type) {
 			case GEVENT_GWIN_RADIO:
-				//printf("group: %u   radio: %s\n", ((GEventGWinRadio *)pe)->group, gwinGetText(((GEventGWinRadio *)pe)->gwin));
+				//printf("group: %u   radio: %s\n", ((GEventGWinRadio *)pe)->group, gwinGetText(((GEventGWinRadio *)pe)->radio));
 				break;
 
 			default:

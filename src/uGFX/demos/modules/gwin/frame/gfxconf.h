@@ -24,9 +24,6 @@
 //#define GFX_USE_OS_LINUX                           TRUE
 //#define GFX_USE_OS_OSX                             TRUE
 
-// Oops - rand() seems to use malloc()
-#define GFX_EMULATE_MALLOC                           TRUE
-
 ///////////////////////////////////////////////////////////////////////////
 // GDISP                                                                 //
 ///////////////////////////////////////////////////////////////////////////
@@ -49,7 +46,6 @@
 #define GWIN_NEED_WINDOWMANAGER                      TRUE
 
 #define GWIN_NEED_WIDGET                             TRUE
-    #define GWIN_NEED_LABEL                          TRUE
     #define GWIN_NEED_BUTTON                         TRUE
     #define GWIN_NEED_SLIDER                         TRUE
 #define GWIN_NEED_CONTAINERS                         TRUE

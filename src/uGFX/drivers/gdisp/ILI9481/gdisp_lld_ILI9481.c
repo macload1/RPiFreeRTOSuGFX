@@ -9,19 +9,18 @@
 
 #if GFX_USE_GDISP
 
-#if defined(GDISP_SCREEN_HEIGHT) || defined(GDISP_SCREEN_HEIGHT)
-	#if GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_DIRECT
-		#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
-	#elif GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_MACRO
-		COMPILER_WARNING("GDISP: This low level driver does not support setting a screen size. It is being ignored.")
-	#endif
+#if defined(GDISP_SCREEN_HEIGHT)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
+	#undef GISP_SCREEN_HEIGHT
+#endif
+#if defined(GDISP_SCREEN_WIDTH)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
 	#undef GDISP_SCREEN_WIDTH
-	#undef GDISP_SCREEN_HEIGHT
 #endif
 
 #define GDISP_DRIVER_VMT			GDISPVMT_ILI9481
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/ILI9481/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_ILI9481.h"
 
@@ -249,7 +248,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 				write_reg(g, 0x0010, 0x0000);	/* leave sleep mode */
 				release_bus(g);
 				if (g->g.Powermode != powerSleep)
-					gdisp_lld_init(g);
+					gdisp_lld_init();
 				break;
 			case powerSleep:
 				acquire_bus(g);

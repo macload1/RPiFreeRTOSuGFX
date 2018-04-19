@@ -46,20 +46,16 @@
 
 #define GDISP_INCLUDE_FONT_UI2	TRUE
 
-/* You must either define GDISP_TOTAL_DISPLAYS or GDISP_DRIVER_LIST for multiple displays.
- * You cannot define both!
+#define GDISP_TOTAL_DISPLAYS	2
+
+/* Uncomment the following lines if you want to use multiple displays on
+ * different controllers.
  *
- * Defining GDISP_TOTAL_DISPLAYS will create multiple instances of the one default driver.
- * Defining GDISP_DRIVER_LIST allows you to specify multiple different drivers.
+ * Change the definitions to suit your hardware.
+ * Currently all controllers must use the same pixel format.
  *
- * Extra Notes for GDISP_DRIVER_LIST:
- *-----------------------------------
- *
- * The same controller can appear more than once in the list.
- *
- * You must specify a GDISP_PIXELFORMAT that the application will work in. This
- *   is translated into each drivers internal pixel format by the driver. You the
- *   pixel format that is most common across your drivers (for efficiency).
+ * Remember that GDISP_TOTAL_DISPLAYS above must match the **Total**
+ * number of displays in your system across all controllers.
  *
  * Optionally, you can also specify hardware characteristics that are common to
  * all your controllers. This significantly improves code and speed efficiency
@@ -76,22 +72,9 @@
  * 		#define GDISP_HARDWARE_DRAWPIXEL	TRUE
  * 		#define GDISP_HARDWARE_FILLS		TRUE
  */
-#if GFX_USE_OS_WIN32 || GFX_USE_OS_LINUX || GFX_USE_OS_OSX
-	// Emulator
-	#define GDISP_TOTAL_DISPLAYS    2
-
-	//#define GDISP_DRIVER_LIST     GDISPVMT_Win32, GDISPVMT_Win32
-	//#define GDISP_PIXELFORMAT     GDISP_PIXELFORMAT_RGB888
-
-#elif !defined(GDISP_TOTAL_DISPLAYS) && (!defined(GDISP_PIXELFORMAT) || !defined(GDISP_DRIVER_LIST))
-	#error "gfxconf.h: You have not defined multiple displays properly. Try defining GDISP_TOTAL_DISPLAYS or, GDISP_PIXELFORMAT and GDISP_DRIVER_LIST in your makefile"
-#endif
-
-/*
- * The following are needed only for the sprintg() call
- */
-#define GFX_USE_GFILE						TRUE
-#define GFILE_NEED_PRINTG					TRUE
-#define GFILE_NEED_STRINGS					TRUE
+//#define GDISP_TOTAL_CONTROLLERS			2
+//#define GDISP_CONTROLLER_LIST				GDISPVMT_Win32, GDISPVMT_Win32
+//#define GDISP_CONTROLLER_DISPLAYS			1, 1
+//#define GDISP_PIXELFORMAT					GDISP_PIXELFORMAT_RGB888
 
 #endif /* _GFXCONF_H */

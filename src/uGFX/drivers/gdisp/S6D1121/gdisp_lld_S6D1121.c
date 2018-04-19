@@ -9,19 +9,18 @@
 
 #if GFX_USE_GDISP
 
-#if defined(GDISP_SCREEN_HEIGHT) || defined(GDISP_SCREEN_HEIGHT)
-	#if GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_DIRECT
-		#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
-	#elif GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_MACRO
-		COMPILER_WARNING("GDISP: This low level driver does not support setting a screen size. It is being ignored.")
-	#endif
+#if defined(GDISP_SCREEN_HEIGHT)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
+	#undef GISP_SCREEN_HEIGHT
+#endif
+#if defined(GDISP_SCREEN_WIDTH)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
 	#undef GDISP_SCREEN_WIDTH
-	#undef GDISP_SCREEN_HEIGHT
 #endif
 
 #define GDISP_DRIVER_VMT			GDISPVMT_S6D1121
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/S6D1121/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_S6D1121.h"
 
@@ -52,7 +51,7 @@
 #define delay(us)                   gfxSleepMicroseconds(us)
 #define delayms(ms)                 gfxSleepMilliseconds(ms)
 
-static GFXINLINE void set_cursor(GDisplay *g) {
+static inline void set_cursor(GDisplay *g) {
     /* R20h - 8 bit
      * R21h - 9 bit
      */
@@ -78,7 +77,7 @@ static GFXINLINE void set_cursor(GDisplay *g) {
     write_index(g, 0x22);
 }
 
-static GFXINLINE void set_viewport(GDisplay *g) {
+static inline void set_viewport(GDisplay *g) {
     /* HSA / HEA are 8 bit
      * VSA / VEA are 9 bit
      * use masks 0x00FF and 0x01FF to enforce this

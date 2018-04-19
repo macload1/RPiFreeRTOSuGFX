@@ -9,19 +9,18 @@
 
 #if GFX_USE_GDISP
 
-#if defined(GDISP_SCREEN_HEIGHT) || defined(GDISP_SCREEN_HEIGHT)
-	#if GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_DIRECT
-		#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
-	#elif GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_MACRO
-		COMPILER_WARNING("GDISP: This low level driver does not support setting a screen size. It is being ignored.")
-	#endif
+#if defined(GDISP_SCREEN_HEIGHT)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
+	#undef GISP_SCREEN_HEIGHT
+#endif
+#if defined(GDISP_SCREEN_WIDTH)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
 	#undef GDISP_SCREEN_WIDTH
-	#undef GDISP_SCREEN_HEIGHT
 #endif
 
 #define GDISP_DRIVER_VMT			GDISPVMT_ILI9341
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/ILI9341/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_ILI9341.h"
 
@@ -42,7 +41,7 @@
 	#define GDISP_INITIAL_BACKLIGHT	100
 #endif
 
-#include "ILI9341.h"
+#include "drivers/gdisp/ILI9341/ILI9341.h"
 
 /*===========================================================================*/
 /* Driver local functions.                                                   */
@@ -90,7 +89,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 	acquire_bus(g);
 
 	write_index(g, 0x01); //software reset
-	gfxSleepMilliseconds(5);
+	chThdSleepMilliseconds(5);
 	write_index(g, 0x28);
 	// display off
 	//---------------------------------------------------------
@@ -211,9 +210,9 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 	write_data(g, 0x27);
 	write_data(g, 0x00);
 	write_index(g, 0x11); //sleep out
-	gfxSleepMilliseconds(100);
+	chThdSleepMilliseconds(100);
 	write_index(g, 0x29); // display on
-	gfxSleepMilliseconds(100);
+	chThdSleepMilliseconds(100);
 
     // Finish Init
     post_init_board(g);

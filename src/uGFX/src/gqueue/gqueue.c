@@ -5,7 +5,12 @@
  *              http://ugfx.org/license.html
  */
 
-#include "../../gfx.h"
+/**
+ * @file    src/gqueue/gqueue.c
+ * @brief   GQUEUE source file.
+ */
+
+#include "gfx.h"
 
 #if GFX_USE_GQUEUE
 

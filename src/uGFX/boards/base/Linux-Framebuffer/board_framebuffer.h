@@ -96,12 +96,7 @@
 			fb_var.reserved[2] = 0;
 			fb_var.xoffset = 0;
 			fb_var.yoffset = 0;
-			#if LLDCOLOR_BITS == 15
-				fb_var.bits_per_pixel = LLDCOLOR_BITS;				// Handle RGB555 & BGR555
-			#else
-				fb_var.bits_per_pixel = sizeof(LLDCOLOR_TYPE)*8;
-			#endif
-			fb_var.grayscale = 0;
+			fb_var.bits_per_pixel = LLDCOLOR_BITS;
 			fb_var.activate = FB_ACTIVATE_NOW;
 			if (ioctl(fb, FBIOPUT_VSCREENINFO, &fb_var) == -1 || ioctl (fb, FBIOGET_VSCREENINFO, &fb_var) == -1) {
 				fprintf(stderr, "GDISP Framebuffer: Failed to set video mode\n");
@@ -118,7 +113,7 @@
 			fprintf(stderr, "GDISP Framebuffer: The display is not in TRUECOLOR mode\n");
 			exit(-1);
 		}
-		if (fb_var.bits_per_pixel != sizeof(LLDCOLOR_TYPE)*8) {
+		if (fb_var.bits_per_pixel != LLDCOLOR_TYPE_BITS) {
 			fprintf(stderr, "GDISP Framebuffer: The display is %u not %u bits per pixel\n", fb_var.bits_per_pixel, LLDCOLOR_TYPE_BITS);
 			exit(-1);
 		}
@@ -128,7 +123,7 @@
 		}
 		if (fb_var.red.offset != LLDCOLOR_SHIFT_R || fb_var.green.offset != LLDCOLOR_SHIFT_G || fb_var.blue.offset != LLDCOLOR_SHIFT_B) {
 			#if LLDCOLOR_SHIFT_B == 0
-				fprintf(stderr, "GDISP Framebuffer: The display pixel format is not RGB\n");
+				fprintf(stderr, "GDISP Framebuffer: THe display pixel format is not RGB\n");
 			#else
 				fprintf(stderr, "GDISP Framebuffer: The display pixel format is not BGR\n");
 			#endif

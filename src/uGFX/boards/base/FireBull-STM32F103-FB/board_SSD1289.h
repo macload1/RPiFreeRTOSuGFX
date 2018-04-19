@@ -19,7 +19,7 @@
 #define SET_RD		palSetPad(GPIOD, 15);
 #define CLR_RD		palClearPad(GPIOD, 15);
 
-static GFXINLINE void init_board(GDisplay *g)
+static inline void init_board(GDisplay *g)
 {
 
 	// As we are not using multiple displays we set g->board to NULL as we don't use it.
@@ -43,12 +43,12 @@ static GFXINLINE void init_board(GDisplay *g)
 	}
 }
 
-static GFXINLINE void post_init_board(GDisplay *g)
+static inline void post_init_board(GDisplay *g)
 {
 	(void) g;
 }
 
-static GFXINLINE void setpin_reset(GDisplay *g, bool_t state)
+static inline void setpin_reset(GDisplay *g, bool_t state)
 {
 	(void) g;
 	(void) state;
@@ -56,7 +56,7 @@ static GFXINLINE void setpin_reset(GDisplay *g, bool_t state)
 	/* Nothing to do here - reset pin tied to Vcc */
 }
 
-static GFXINLINE void set_backlight(GDisplay *g, uint8_t percent)
+static inline void set_backlight(GDisplay *g, uint8_t percent)
 {
 	(void) g;
 	(void) percent;
@@ -64,17 +64,17 @@ static GFXINLINE void set_backlight(GDisplay *g, uint8_t percent)
 	/* Nothing to do here - Backlight always on */
 }
 
-static GFXINLINE void acquire_bus(GDisplay *g)
+static inline void acquire_bus(GDisplay *g)
 {
 	(void) g;
 }
 
-static GFXINLINE void release_bus(GDisplay *g)
+static inline void release_bus(GDisplay *g)
 {
 	(void) g;
 }
 
-static GFXINLINE void write_index(GDisplay *g, uint16_t index)
+static inline void write_index(GDisplay *g, uint16_t index)
 {
 	(void) g;
 
@@ -85,7 +85,7 @@ static GFXINLINE void write_index(GDisplay *g, uint16_t index)
 	SET_RS;
 }
 
-static GFXINLINE void write_data(GDisplay *g, uint16_t data)
+static inline void write_data(GDisplay *g, uint16_t data)
 {
 	(void) g;
 
@@ -94,7 +94,7 @@ static GFXINLINE void write_data(GDisplay *g, uint16_t data)
 	SET_WR;
 }
 
-static GFXINLINE void setreadmode(GDisplay *g)
+static inline void setreadmode(GDisplay *g)
 {
 	(void) g;
 
@@ -103,7 +103,7 @@ static GFXINLINE void setreadmode(GDisplay *g)
 	CLR_RD;
 }
 
-static GFXINLINE void setwritemode(GDisplay *g)
+static inline void setwritemode(GDisplay *g)
 {
 	(void) g;
 	
@@ -112,9 +112,7 @@ static GFXINLINE void setwritemode(GDisplay *g)
 	palSetGroupMode(GPIOE, PAL_WHOLE_PORT, 0, PAL_MODE_OUTPUT_PUSHPULL);
 }
 
-static GFXINLINE uint16_t read_data(GDisplay *g) {
-	(void) g;
-
+static inline uint16_t read_data(GDisplay *g) {
 	return palReadPort(GPIOE);
 }
 

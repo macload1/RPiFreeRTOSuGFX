@@ -1,11 +1,11 @@
 # build environment
-PREFIX ?= /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-4_8-2014q1
+PREFIX ?= /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3
 ARCH ?= $(PREFIX)/bin/arm-none-eabi
 
 CC = ${ARCH}-gcc
 CPP = ${ARCH}-g++
 AS = ${ARCH}-as
-LD = ${ARCH}-ld
+LD = ${ARCH}-gcc
 AR = ${ARCH}-ar
 OBJCOPY = ${ARCH}-objcopy
 
@@ -18,7 +18,7 @@ ASFLAGS = -g
 
 CFLAGS_FOR_TARGET = #-mcpu=arm1176jzf-s
 ASFLAGS_FOR_TARGET = #-mcpu=arm1176jzf-s
-LDFLAGS = #--error-unresolved-symbols
+LDFLAGS = -nostartfiles #--specs=rdimon.specs #--error-unresolved-symbols
 
 GFXLIB := src/uGFX
 include $(GFXLIB)/gfx.mk
@@ -67,10 +67,13 @@ OBJ = $(AOBJ) $(COBJ)
 SDCard/kernel.img: bin/kernel.elf
 	${OBJCOPY} -O binary $< $@
 
-bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-4_8-2014q1/lib/gcc/arm-none-eabi/4.8.3" -lgcc
-bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-4_8-2014q1/arm-none-eabi/lib" -lc
+#bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/4.8.3" -lgcc 
+bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib" -lc
+bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib" -lrdimon
+#bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-4_8-2014q1/arm-none-eabi/lib" -lstdc++
+#bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-4_8-2014q1/arm-none-eabi/lib" -lm
 bin/kernel.elf: $(OBJ)
-	${LD} $(OBJ) -Map bin/kernel.map -o $@ -T $(LINKER_SCRIPT) ${LDFLAGS}
+	${LD} $(OBJ) -o $@ -T $(LINKER_SCRIPT) ${LDFLAGS}
 
 clean:
 	rm -f bin/*.elf bin/*.img bin/*.map $(OBJ)

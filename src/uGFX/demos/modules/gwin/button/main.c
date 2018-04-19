@@ -39,7 +39,7 @@ static void createWidgets(void) {
 	gwinWidgetClearInit(&wi);
 	wi.g.show = TRUE;
 
-	// Apply the button parameters
+	// Apply the button parameters	
 	wi.g.width = 100;
 	wi.g.height = 30;
 	wi.g.y = 10;
@@ -67,6 +67,9 @@ int main(void) {
 	gwinSetDefaultStyle(&WhiteWidgetStyle, FALSE);
 	gdispClear(White);
 
+	// Attach the mouse input
+	gwinAttachMouse(0);
+
 	// create the widget
 	createWidgets();
 
@@ -80,7 +83,7 @@ int main(void) {
 
 		switch(pe->type) {
 			case GEVENT_GWIN_BUTTON:
-				if (((GEventGWinButton*)pe)->gwin == ghButton1) {
+				if (((GEventGWinButton*)pe)->button == ghButton1) {
 					// Our button has been pressed
 					if (++which >= sizeof(orients)/sizeof(orients[0]))
 						which = 0;

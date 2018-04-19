@@ -155,6 +155,8 @@ void vPortEndScheduler( void )
  */
 void vTickISR(int nIRQ, void *pParam )
 {
+	(void)nIRQ;
+	(void)pParam;
 	xTaskIncrementTick();
 
 	#if configUSE_PREEMPTION == 1

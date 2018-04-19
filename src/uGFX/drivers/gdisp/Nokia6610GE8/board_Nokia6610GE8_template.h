@@ -20,38 +20,38 @@
 //#define GDISP_INITIAL_CONTRAST			50		// The initial contrast percentage
 //#define GDISP_INITIAL_BACKLIGHT			100		// The initial backlight percentage
 
-static GFXINLINE void init_board(GDisplay *g) {
+static inline void init_board(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void post_init_board(GDisplay *g) {
+static inline void post_init_board(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
+static inline void setpin_reset(GDisplay *g, bool_t state) {
 	(void) g;
 	(void) state;
 }
 
-static GFXINLINE void set_backlight(GDisplay *g, uint8_t percent) {
+static inline void set_backlight(GDisplay *g, uint8_t percent) {
 	(void) g;
 	(void) percent;
 }
 
-static GFXINLINE void acquire_bus(GDisplay *g) {
+static inline void acquire_bus(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void release_bus(GDisplay *g) {
+static inline void release_bus(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void write_index(GDisplay *g, uint16_t index) {
+static inline void write_index(GDisplay *g, uint16_t index) {
 	(void) g;
 	(void) index;
 }
 
-static GFXINLINE void write_data(GDisplay *g, uint16_t data) {
+static inline void write_data(GDisplay *g, uint16_t data) {
 	(void) g;
 	(void) data;
 }

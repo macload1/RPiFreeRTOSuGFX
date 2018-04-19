@@ -2,10 +2,10 @@
 #include "mailbox.h"
 
 
-//FrameBufferDescription FrameBufferInfo __attribute__((aligned (16))) =
-//  { 1024, 768, 1024, 768, 0, 16, 0, 0, 0, 0 };
-FrameBufferDescription FrameBufferInfo __attribute__((aligned (32))) =
-  { 480, 272, 480, 272, 0, 32, 0, 0, 0, 0 };
+FrameBufferDescription FrameBufferInfo __attribute__((aligned (16))) =
+  { 480, 272, 480, 272, 0, 16, 0, 0, 0, 0 };
+//FrameBufferDescription FrameBufferInfo __attribute__((aligned (32))) =
+//  { 480, 272, 480, 272, 0, 32, 0, 0, 0, 0 };
 
 
 /* Initialise the framebuffer */

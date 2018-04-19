@@ -28,19 +28,16 @@
 // GOS - One of these must be defined, preferably in your Makefile       //
 ///////////////////////////////////////////////////////////////////////////
 //#define GFX_USE_OS_CHIBIOS                           FALSE
-//#define GFX_OS_NO_INIT                          TRUE
-#define GFX_OS_CALL_UGFXMAIN                    TRUE
 #define GFX_USE_OS_FREERTOS             		TRUE
 //    #define GFX_FREERTOS_USE_TRACE                   FALSE
 //#define GFX_USE_OS_WIN32                             FALSE
 //#define GFX_USE_OS_LINUX                             FALSE
 //#define GFX_USE_OS_OSX                               FALSE
 //#define GFX_USE_OS_RAW32                             FALSE
-    #define GOS_RAW_HEAP_SIZE                        0
+//    #define GOS_RAW_HEAP_SIZE                        0
 //    #define INTERRUPTS_OFF()                         optional_code
 //    #define INTERRUPTS_ON()                          optional_code
-//#define GFX_COMPILER                             GFX_COMPILER_GCC
-//#define GFX_SHOW_COMPILER                        TRUE
+
 
 ///////////////////////////////////////////////////////////////////////////
 // GDISP                                                                 //
@@ -49,7 +46,7 @@
 
 /* Features for the GDISP sub-system. */
 #define GDISP_NEED_VALIDATION           FALSE
-#define GDISP_NEED_CLIP                 FALSE
+//#define GDISP_NEED_CLIP                 TRUE
 #define GDISP_NEED_TEXT                 TRUE
 #define GDISP_NEED_CONTROL              TRUE
 
@@ -70,12 +67,12 @@
 //#define GDISP_NEED_QUERY                             FALSE
 //#define GDISP_NEED_MULTITHREAD                       FALSE
 //#define GDISP_NEED_STREAMING                         FALSE
-//#define GDISP_NEED_TEXT                              FALSE
+#define GDISP_NEED_TEXT                              TRUE
 //    #define GDISP_NEED_ANTIALIAS                     FALSE
 //    #define GDISP_NEED_UTF8                          FALSE
 //    #define GDISP_NEED_TEXT_KERNING                  FALSE
 //    #define GDISP_INCLUDE_FONT_UI1                   FALSE
-//    #define GDISP_INCLUDE_FONT_UI2                   FALSE		// The smallest preferred font.
+    #define GDISP_INCLUDE_FONT_UI2                   TRUE		// The smallest preferred font.
 //    #define GDISP_INCLUDE_FONT_LARGENUMBERS          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS10          FALSE
     #define GDISP_INCLUDE_FONT_DEJAVUSANS12          TRUE
@@ -131,7 +128,7 @@
 //        #define GDISP_HARDWARE_CLIP                  FALSE
 //    #endif
 
-#define GDISP_TOTAL_CONTROLLERS                      1
+//#define GDISP_TOTAL_CONTROLLERS                      1
 //    #if GDISP_TOTAL_CONTROLLERS > 1
 //        #define GDISP_CONTROLLER_LIST                GDISPVMT_Win32, GDISPVMT_Win32
 //        #define GDISP_CONTROLLER_DISPLAYS            1, 1

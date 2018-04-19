@@ -19,11 +19,9 @@
 
 /* Type used to represent characters internally. */
 #if MF_ENCODING == MF_ENCODING_ASCII
-	typedef char mf_char;
-	#define MFCHAR2UINT16(c)	((uint16_t)(uint8_t)(c))
+typedef char mf_char;
 #else
-	typedef uint16_t mf_char;
-	#define MFCHAR2UINT16(c)	(c)
+typedef uint16_t mf_char;
 #endif
 
 /* Type used to represent input strings. */

@@ -10,19 +10,18 @@
 #if GFX_USE_GDISP
 
 /* This controller is only ever used with a 240 x 320 display */
-#if defined(GDISP_SCREEN_HEIGHT) || defined(GDISP_SCREEN_HEIGHT)
-	#if GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_DIRECT
-		#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
-	#elif GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_MACRO
-		COMPILER_WARNING("GDISP: This low level driver does not support setting a screen size. It is being ignored.")
-	#endif
-	#undef GDISP_SCREEN_WIDTH
+#if defined(GDISP_SCREEN_HEIGHT)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
 	#undef GDISP_SCREEN_HEIGHT
+#endif
+#if defined(GDISP_SCREEN_WIDTH)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
+	#undef GDISP_SCREEN_WIDTH
 #endif
 
 #define GDISP_DRIVER_VMT			GDISPVMT_ILI9320
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/ILI9320/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_ILI9320.h"
 

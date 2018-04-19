@@ -10,8 +10,8 @@
 #if GFX_USE_GDISP
 
 #define GDISP_DRIVER_VMT			GDISPVMT_ST7565
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/ST7565/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_ST7565.h"
 
@@ -34,7 +34,7 @@
 
 #define GDISP_FLG_NEEDFLUSH			(GDISP_FLG_DRIVER<<0)
 
-#include "st7565.h"
+#include "drivers/gdisp/ST7565/st7565.h"
 
 /*===========================================================================*/
 /* Driver config defaults for backward compatibility.               	     */
@@ -82,9 +82,6 @@
 LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 	// The private area is the display surface.
 	g->priv = gfxAlloc(GDISP_SCREEN_HEIGHT * GDISP_SCREEN_WIDTH / 8);
-	if (!g->priv) {
-		return FALSE;
-	}
 
 	// Initialise the board interface
 	init_board(g);
@@ -130,14 +127,13 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
  	// Release the bus
 	release_bus(g);
 
-	// Initialise the GDISP structure
+	/* Initialise the GDISP structure */
 	g->g.Width = GDISP_SCREEN_WIDTH;
 	g->g.Height = GDISP_SCREEN_HEIGHT;
 	g->g.Orientation = GDISP_ROTATE_0;
 	g->g.Powermode = powerOn;
 	g->g.Backlight = GDISP_INITIAL_BACKLIGHT;
 	g->g.Contrast = GDISP_INITIAL_CONTRAST;
-
 	return TRUE;
 }
 
@@ -159,8 +155,6 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 			write_data(g, RAM(g) + (p*GDISP_SCREEN_WIDTH), GDISP_SCREEN_WIDTH);
 		}
 		release_bus(g);
-
-		g->flags &= ~GDISP_FLG_NEEDFLUSH;
 	}
 #endif
 
@@ -251,7 +245,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 			if (g->g.Orientation == (orientation_t)g->p.ptr)
 				return;
 			switch((orientation_t)g->p.ptr) {
-			// Rotation is handled by the drawing routines
+			/* Rotation is handled by the drawing routines */
 			case GDISP_ROTATE_0:
 			case GDISP_ROTATE_180:
 				g->g.Height = GDISP_SCREEN_HEIGHT;

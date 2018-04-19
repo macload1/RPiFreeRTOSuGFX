@@ -5,7 +5,12 @@
  *              http://ugfx.org/license.html
  */
 
-#include "../../gfx.h"
+/**
+ * @file    src/gmisc/gmisc.c
+ * @brief   GMISC Functions.
+ *
+ */
+#include "gfx.h"
 
 #if GFX_USE_GMISC
 

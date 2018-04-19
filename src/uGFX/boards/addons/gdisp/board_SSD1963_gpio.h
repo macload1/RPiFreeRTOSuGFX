@@ -53,7 +53,7 @@ static const LCD_Parameters	DisplayTimings[] = {
 #define Set_RD		palSetPad(GDISP_CMD_PORT, GDISP_RD);
 #define Clr_RD		palClearPad(GDISP_CMD_PORT, GDISP_RD);
 
-static GFXINLINE void init_board(GDisplay *g) {
+static inline void init_board(GDisplay *g) {
 
 	// As we are not using multiple displays we set g->board to NULL as we don't use it.
 	g->board = 0;
@@ -68,33 +68,33 @@ static GFXINLINE void init_board(GDisplay *g) {
 	}
 }
 
-static GFXINLINE void post_init_board(GDisplay *g) {
+static inline void post_init_board(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
+static inline void setpin_reset(GDisplay *g, bool_t state) {
 	(void) g;
 	(void) state;
 }
 
-static GFXINLINE void acquire_bus(GDisplay *g) {
+static inline void acquire_bus(GDisplay *g) {
 	(void) g;
 	Set_CS;
 }
 
-static GFXINLINE void release_bus(GDisplay *g) {
+static inline void release_bus(GDisplay *g) {
 	(void) g;
 	Clr_CS;
 }
 
-static GFXINLINE void write_index(GDisplay *g, uint16_t index) {
+static inline void write_index(GDisplay *g, uint16_t index) {
 	(void) g;
 	Set_RS; Clr_RD; Set_WR;
 	palWritePort(GDISP_DATA_PORT, index);
 	Clr_WR;
 }
 
-static GFXINLINE void write_data(GDisplay *g, uint16_t data) {
+static inline void write_data(GDisplay *g, uint16_t data) {
 	(void) g;
 	Clr_RS; Clr_RD; Set_WR;
 	palWritePort(GDISP_DATA_PORT, data);

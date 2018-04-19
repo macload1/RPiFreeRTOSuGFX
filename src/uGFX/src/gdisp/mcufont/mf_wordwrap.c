@@ -52,8 +52,6 @@ static bool get_wordlen(const struct mf_font_s *font, mf_str *text,
         
         if (c == ' ')
             result->space += mf_character_width(font, c);
-        else if (c == '-')
-			result->space += mf_character_width(font, '-');
         else if (c == '\t')
             result->space += mf_character_width(font, 'm') * MF_TABSIZE;
         else if (c == '\n')
@@ -132,6 +130,7 @@ static bool append_char(const struct mf_font_s *font, int16_t width,
     }
 }
 
+static int16_t abs16(int16_t x) { return (x > 0) ? x : -x; }
 static int32_t sq16(int16_t x) { return (int32_t)x * x; }
 
 /* Try to balance the lines by potentially moving one word from the previous
@@ -174,8 +173,8 @@ static void tune_lines(struct linelen_s *current, struct linelen_s *previous,
 void mf_wordwrap(const struct mf_font_s *font, int16_t width,
                  mf_str text, mf_line_callback_t callback, void *state)
 {
-    struct linelen_s current = { 0 };
-    struct linelen_s previous = { 0 };
+    struct linelen_s current = {};
+    struct linelen_s previous = {};
     bool full;
     
     current.start = text;

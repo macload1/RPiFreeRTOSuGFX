@@ -9,19 +9,18 @@
 
 #if GFX_USE_GDISP
 
-#if defined(GDISP_SCREEN_HEIGHT) || defined(GDISP_SCREEN_HEIGHT)
-	#if GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_DIRECT
-		#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
-	#elif GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_MACRO
-		COMPILER_WARNING("GDISP: This low level driver does not support setting a screen size. It is being ignored.")
-	#endif
-	#undef GDISP_SCREEN_WIDTH
+#if defined(GDISP_SCREEN_HEIGHT)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
 	#undef GDISP_SCREEN_HEIGHT
+#endif
+#if defined(GDISP_SCREEN_WIDTH)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
+	#undef GDISP_SCREEN_WIDTH
 #endif
 
 #define GDISP_DRIVER_VMT			GDISPVMT_Nokia6610GE12
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/Nokia6610GE12/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_Nokia6610GE12.h"
 
@@ -29,7 +28,7 @@
 /* Driver local definitions.                                                 */
 /*===========================================================================*/
 
-#include "GE12.h"
+#include "drivers/gdisp/Nokia6610GE12/GE12.h"
 
 #define GDISP_SCAN_LINES			132
 #define GDISP_SLEEP_SIZE			32		/* Sleep mode window lines - this must be 32 on this controller */
@@ -83,7 +82,7 @@
 #define write_reg2(g, cmd, d1, d2)		{ write_index(g, cmd); write_data2(g, d1, d2); }
 #define write_reg3(g, cmd, d1, d2, d3)	{ write_index(g, cmd); write_data3(g, d1, d2, d3); }
 
-static GFXINLINE void set_viewport(GDisplay* g) {
+static inline void set_viewport(GDisplay* g) {
 	write_reg2(g, CASET, GDISP_RAM_X_OFFSET+g->p.x, GDISP_RAM_X_OFFSET+g->p.x+g->p.cx-1);			// Column address set
 	write_reg2(g, PASET, GDISP_RAM_Y_OFFSET+g->p.y, GDISP_RAM_Y_OFFSET+g->p.y+g->p.cy-1);			// Page address set
 	write_index(g, RAMWR);

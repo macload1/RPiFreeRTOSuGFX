@@ -40,7 +40,7 @@ static void createWidgets(void) {
     wi.text = "Container 3";
     ghContainer3 = gwinContainerCreate(0, &wi, GWIN_CONTAINER_BORDER);
 
-    // Button 1
+    // Button 1    
     wi.g.width = 80;
     wi.g.height = 20;
     wi.g.y = 10;
@@ -49,7 +49,7 @@ static void createWidgets(void) {
     wi.g.parent = ghContainer2;
     ghButton1 = gwinButtonCreate(0, &wi);
 
-    // Button 2
+    // Button 2    
     wi.g.width = 80;
     wi.g.height = 20;
     wi.g.y = 40;
@@ -58,7 +58,7 @@ static void createWidgets(void) {
     wi.g.parent = ghContainer2;
     ghButton2 = gwinButtonCreate(0, &wi);
 
-    // Button 3
+    // Button 3    
     wi.g.width = 80;
     wi.g.height = 20;
     wi.g.y = 10;
@@ -67,7 +67,7 @@ static void createWidgets(void) {
     wi.g.parent = ghContainer3;
     ghButton3 = gwinButtonCreate(0, &wi);
 
-    // Button 4
+    // Button 4    
     wi.g.width = 80;
     wi.g.height = 20;
     wi.g.y = 40;
@@ -115,6 +115,9 @@ int main(void) {
     // Initialize the display
     gfxInit();
 
+    // Attach the mouse input
+    gwinAttachMouse(0);
+
     // Set the widget defaults
     gwinSetDefaultFont(gdispOpenFont("*"));
     gwinSetDefaultStyle(&WhiteWidgetStyle, FALSE);
@@ -138,13 +141,13 @@ int main(void) {
 
         switch(pe->type) {
             case GEVENT_GWIN_CHECKBOX:
-                if (((GEventGWinCheckbox*)pe)->gwin == ghCheckbox1) {
+                if (((GEventGWinCheckbox*)pe)->checkbox == ghCheckbox1) {
                     gwinSetVisible(ghContainer2, gwinCheckboxIsChecked(ghCheckbox1));
                 }
-                else if (((GEventGWinCheckbox*)pe)->gwin == ghCheckbox2) {
+                else if (((GEventGWinCheckbox*)pe)->checkbox == ghCheckbox2) {
                     gwinSetVisible(ghContainer3, gwinCheckboxIsChecked(ghCheckbox2));
                 }
-                else if (((GEventGWinCheckbox*)pe)->gwin == ghCheckbox3) {
+                else if (((GEventGWinCheckbox*)pe)->checkbox == ghCheckbox3) {
                     gwinSetVisible(ghContainer1, gwinCheckboxIsChecked(ghCheckbox3));
                 }
                 break;

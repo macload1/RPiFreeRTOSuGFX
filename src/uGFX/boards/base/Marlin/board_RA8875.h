@@ -20,7 +20,7 @@
 #define FSMC_BANK				4
 
 
-static GFXINLINE void init_board(GDisplay *g) {
+static inline void init_board(GDisplay *g) {
 	// As we are not using multiple displays we set g->board to NULL as we don't use it.
 	g->board = 0;
 
@@ -62,7 +62,7 @@ static GFXINLINE void init_board(GDisplay *g) {
 	}
 }
 
-static GFXINLINE void post_init_board(GDisplay *g) {
+static inline void post_init_board(GDisplay *g) {
 	(void) g;
 	
 	// FSMC delay reduced as the controller now runs at full speed
@@ -70,40 +70,40 @@ static GFXINLINE void post_init_board(GDisplay *g) {
 	FSMC_Bank1->BTCR[2] = FSMC_BCR1_MWID_0 | FSMC_BCR1_WREN | FSMC_BCR1_MBKEN;
 }
 
-static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
+static inline void setpin_reset(GDisplay *g, bool_t state) {
 	(void) g;
 	(void) state;
 }
 
-static GFXINLINE void acquire_bus(GDisplay *g) {
+static inline void acquire_bus(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void release_bus(GDisplay *g) {
+static inline void release_bus(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void write_index(GDisplay *g, uint16_t index) {
+static inline void write_index(GDisplay *g, uint16_t index) {
 	(void) g;
 
 	GDISP_REG = index;
 }
 
-static GFXINLINE void write_data(GDisplay *g, uint16_t data) {
+static inline void write_data(GDisplay *g, uint16_t data) {
 	(void) g;
 
 	GDISP_RAM = data;
 }
 
-static GFXINLINE void setreadmode(GDisplay *g) {
+static inline void setreadmode(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void setwritemode(GDisplay *g) {
+static inline void setwritemode(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE uint16_t read_data(GDisplay *g) {
+static inline uint16_t read_data(GDisplay *g) {
 	(void) g;
 
 	return GDISP_RAM;

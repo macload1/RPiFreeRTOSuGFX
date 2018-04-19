@@ -2,7 +2,7 @@ This folder contains a few demos which explain how to use the library.
 
 Only the main files are contained. No compile-able projects
 
-Most demos and examples stand under the BSD license as declared below and
+All demos and examples stand under the BSD license as declared below and
 within each file:
 
 /*
@@ -34,5 +34,3 @@ within each file:
  */
 
 Files under the 3rdparty directory are licensed as per the original contributor.
-Files under the tools directory are licensed with either the uGFX license or the BSD
-license - see each tool demo source code for its specific license.

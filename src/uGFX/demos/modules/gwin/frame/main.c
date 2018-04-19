@@ -1,5 +1,5 @@
 #include "gfx.h"
-#include <stdlib.h>
+#include "stdio.h"
 
 static GListener    gl;
 static GHandle      ghFrame1;
@@ -25,15 +25,7 @@ static void _createWidgets(void) {
     gwinWidgetClearInit(&wi);
     wi.g.show = TRUE;
 
-    // Create a surprise label behind the frame window
-    wi.g.width = 100;
-    wi.g.height = 20;
-    wi.g.y = 100;
-    wi.g.x = 150;
-    wi.text = "Surprise!";
-    gwinLabelCreate(0, &wi);
-
-    // Apply the frame parameters
+    // Apply the frame parameters    
     wi.g.width = 300;
     wi.g.height = 200;
     wi.g.y = 10;
@@ -107,7 +99,7 @@ static void _createWidgets(void) {
     wi.g.x = 10;
     wi.g.y = 90;
     ghWindow1 = gwinWindowCreate(0, &wi.g);
-
+    
     _updateColor();
 }
 
@@ -116,6 +108,9 @@ int main(void) {
 
     // Initialize the display
     gfxInit();
+
+    // Attach the mouse input
+    gwinAttachMouse(0);
 
     // Set the widget defaults
     gwinSetDefaultFont(gdispOpenFont("*"));
@@ -135,19 +130,19 @@ int main(void) {
 
         switch(pe->type) {
             case GEVENT_GWIN_SLIDER:
-                if (((GEventGWinSlider *)pe)->gwin == ghSliderR || \
-                                                      ghSliderG || \
-                                                      ghSliderB ) {
+                if (((GEventGWinSlider *)pe)->slider == ghSliderR || \
+                                                        ghSliderG || \
+                                                        ghSliderB ) {
                     _updateColor();
                 }
                 break;
 
             case GEVENT_GWIN_BUTTON:
-                if (((GEventGWinButton *)pe)->gwin == ghButton1) {
+                if (((GEventGWinButton *)pe)->button == ghButton1) {
                     gwinSliderSetPosition(ghSliderR, rand() % 256);
-                } else if (((GEventGWinButton *)pe)->gwin == ghButton2) {
+                } else if (((GEventGWinButton *)pe)->button == ghButton2) {
                     gwinSliderSetPosition(ghSliderG, rand() % 256);
-                } else if (((GEventGWinButton *)pe)->gwin == ghButton3) {
+                } else if (((GEventGWinButton *)pe)->button == ghButton3) {
                     gwinSliderSetPosition(ghSliderB, rand() % 256);
                 }
 

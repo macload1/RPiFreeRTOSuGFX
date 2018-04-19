@@ -10,11 +10,10 @@
 #if GFX_USE_GDISP
 
 #define GDISP_DRIVER_VMT			GDISPVMT_SSD1306
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/SSD1306/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_SSD1306.h"
-#include <string.h>   // for memset
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
@@ -42,7 +41,7 @@
 
 #define GDISP_FLG_NEEDFLUSH			(GDISP_FLG_DRIVER<<0)
 
-#include "SSD1306.h"
+#include "drivers/gdisp/SSD1306/SSD1306.h"
 
 /*===========================================================================*/
 /* Driver local functions.                                                   */
@@ -105,12 +104,10 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 	write_cmd(g, SSD1306_SETSTARTLINE | 0);
 	write_cmd2(g, SSD1306_ENABLE_CHARGE_PUMP, 0x14);
 	write_cmd2(g, SSD1306_MEMORYMODE, 0);
-	write_cmd(g, SSD1306_COLSCANDEC);
-	write_cmd(g, SSD1306_ROWSCANDEC);
+	write_cmd(g, SSD1306_SEGREMAP+1);
+	write_cmd(g, SSD1306_COMSCANDEC);
 	#if GDISP_SCREEN_HEIGHT == 64
 		write_cmd2(g, SSD1306_SETCOMPINS, 0x12);
-	#elif GDISP_SCREEN_HEIGHT == 32
-		write_cmd2(g, SSD1306_SETCOMPINS, 0x02);
 	#else
 		write_cmd2(g, SSD1306_SETCOMPINS, 0x22);
 	#endif
@@ -139,98 +136,16 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 
 #if GDISP_HARDWARE_FLUSH
 	LLDSPEC void gdisp_lld_flush(GDisplay *g) {
-		uint8_t * ram;
-		unsigned pages;
+		unsigned	i;
 
 		// Don't flush if we don't need it.
 		if (!(g->flags & GDISP_FLG_NEEDFLUSH))
 			return;
-		ram = RAM(g);
-		pages = GDISP_SCREEN_HEIGHT/8;
 
-		acquire_bus(g);
 		write_cmd(g, SSD1306_SETSTARTLINE | 0);
 
-		while (pages--) {
-			#if SSD1306_SH1106
-				write_cmd(g, SSD1306_PAM_PAGE_START + (7 - pages));
-				write_cmd(g, SSD1306_SETLOWCOLUMN + 2);
-				write_cmd(g, SSD1306_SETHIGHCOLUMN);
-			#endif
-
-			write_data(g, ram, SSD1306_PAGE_WIDTH);
-			ram += SSD1306_PAGE_WIDTH;
-		}
-		release_bus(g);
-
-		g->flags &= ~GDISP_FLG_NEEDFLUSH;
-	}
-#endif
-
-#if GDISP_HARDWARE_FILLS
-	LLDSPEC void gdisp_lld_fill_area(GDisplay *g) {
-		coord_t		sy, ey;
-		coord_t		sx, ex;
-		coord_t		col;
-		unsigned	spage, zpages;
-		uint8_t *	base;
-		uint8_t		mask;
-
-		switch(g->g.Orientation) {
-		default:
-		case GDISP_ROTATE_0:
-			sx = g->p.x;
-			ex = g->p.x + g->p.cx - 1;
-			sy = g->p.y;
-			ey = sy + g->p.cy - 1;
-			break;
-		case GDISP_ROTATE_90:
-			sx = g->p.y;
-			ex = g->p.y + g->p.cy - 1;
-			sy = GDISP_SCREEN_HEIGHT - g->p.x - g->p.cx;
-			ey = GDISP_SCREEN_HEIGHT-1 - g->p.x;
-			break;
-		case GDISP_ROTATE_180:
-			sx = GDISP_SCREEN_WIDTH - g->p.x - g->p.cx;
-			ex = GDISP_SCREEN_WIDTH-1 - g->p.x;
-			sy = GDISP_SCREEN_HEIGHT - g->p.y - g->p.cy;
-			ey = GDISP_SCREEN_HEIGHT-1 - g->p.y;
-			break;
-		case GDISP_ROTATE_270:
-			sx = GDISP_SCREEN_WIDTH - g->p.y - g->p.cy;
-			ex = GDISP_SCREEN_WIDTH-1 - g->p.y;
-			sy = g->p.x;
-			ey = g->p.x + g->p.cx - 1;
-			break;
-		}
-
-		spage = sy / 8;
-		base = RAM(g) + SSD1306_PAGE_OFFSET + SSD1306_PAGE_WIDTH * spage;
-		mask = 0xff << (sy&7);
-		zpages = (ey / 8) - spage;
-
-		if (gdispColor2Native(g->p.color) == gdispColor2Native(Black)) {
-			while (zpages--) {
-				for (col = sx; col <= ex; col++)
-					base[col] &= ~mask;
-				mask = 0xff;
-				base += SSD1306_PAGE_WIDTH;
-			}
-			mask &= (0xff >> (7 - (ey&7)));
-			for (col = sx; col <= ex; col++)
-				base[col] &= ~mask;
-		} else {
-			while (zpages--) {
-				for (col = sx; col <= ex; col++)
-					base[col] |= mask;
-				mask = 0xff;
-				base += SSD1306_PAGE_WIDTH;
-			}
-			mask &= (0xff >> (7 - (ey&7)));
-			for (col = sx; col <= ex; col++)
-				base[col] |= mask;
-		}
-		g->flags |= GDISP_FLG_NEEDFLUSH;
+		for(i=0; i < GDISP_SCREEN_HEIGHT/8 * SSD1306_PAGE_WIDTH; i+=SSD1306_PAGE_WIDTH)
+			write_data(g, RAM(g)+i, SSD1306_PAGE_WIDTH);
 	}
 #endif
 
@@ -253,11 +168,11 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 			y = GDISP_SCREEN_HEIGHT-1 - g->p.y;
 			break;
 		case GDISP_ROTATE_270:
-			x = GDISP_SCREEN_WIDTH-1 - g->p.y;
-			y = g->p.x;
+			x = GDISP_SCREEN_HEIGHT-1 - g->p.y;
+			x = g->p.x;
 			break;
 		}
-		if (gdispColor2Native(g->p.color) != gdispColor2Native(Black))
+		if (gdispColor2Native(g->p.color) != Black)
 			RAM(g)[xyaddr(x, y)] |= xybit(y);
 		else
 			RAM(g)[xyaddr(x, y)] &= ~xybit(y);
@@ -284,7 +199,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 			y = GDISP_SCREEN_HEIGHT-1 - g->p.y;
 			break;
 		case GDISP_ROTATE_270:
-			x = GDISP_SCREEN_WIDTH-1 - g->p.y;
+			x = GDISP_SCREEN_HEIGHT-1 - g->p.y;
 			y = g->p.x;
 			break;
 		}

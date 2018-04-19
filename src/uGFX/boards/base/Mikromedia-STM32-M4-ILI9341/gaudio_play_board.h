@@ -32,7 +32,7 @@ static const SPIConfig spicfg = {
 };
 
 // Initialise the board
-static GFXINLINE void board_init(void) {
+static inline void board_init(void) {
 	palSetPadMode(GPIOC, GPIOC_MP3_CS, PAL_MODE_OUTPUT_PUSHPULL);
 	palSetPadMode(GPIOC, GPIOC_MP3_RST, PAL_MODE_OUTPUT_PUSHPULL);
 	palSetPadMode(GPIOC, GPIOC_MP3_DCS, PAL_MODE_OUTPUT_PUSHPULL);
@@ -51,7 +51,7 @@ static GFXINLINE void board_init(void) {
 #define board_dreq()		GET_DREQ
 
 // Start a command write
-static GFXINLINE void board_startcmdwrite(void) {
+static inline void board_startcmdwrite(void) {
 	#if SPI_USE_MUTUAL_EXCLUSION
 		spiAcquireBus(SPI_PORT);
 	#endif
@@ -59,7 +59,7 @@ static GFXINLINE void board_startcmdwrite(void) {
 }
 
 // End a command write
-static GFXINLINE void board_endcmdwrite(void) {
+static inline void board_endcmdwrite(void) {
 	SET_CS;
 	#if SPI_USE_MUTUAL_EXCLUSION
 		spiReleaseBus(SPI_PORT);
@@ -73,7 +73,7 @@ static GFXINLINE void board_endcmdwrite(void) {
 #define board_endcmdread()		board_endcmdwrite()
 
 // Start a data write
-static GFXINLINE void board_startdatawrite(void) {
+static inline void board_startdatawrite(void) {
 	#if SPI_USE_MUTUAL_EXCLUSION
 		spiAcquireBus(SPI_PORT);
 	#endif
@@ -81,7 +81,7 @@ static GFXINLINE void board_startdatawrite(void) {
 }
 
 // End a data write
-static GFXINLINE void board_enddatawrite(void) {
+static inline void board_enddatawrite(void) {
 	#if SPI_USE_MUTUAL_EXCLUSION
 		spiReleaseBus(SPI_PORT);
 	#endif

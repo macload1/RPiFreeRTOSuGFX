@@ -10,19 +10,18 @@
 #if GFX_USE_GDISP /*|| defined(__DOXYGEN__)*/
 
 /* This controller is only ever used with a 240 x 320 display */
-#if defined(GDISP_SCREEN_HEIGHT) || defined(GDISP_SCREEN_HEIGHT)
-	#if GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_DIRECT
-		#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
-	#elif GFX_COMPILER_WARNING_TYPE == GFX_COMPILER_WARNING_MACRO
-		COMPILER_WARNING("GDISP: This low level driver does not support setting a screen size. It is being ignored.")
-	#endif
-	#undef GDISP_SCREEN_WIDTH
+#if defined(GDISP_SCREEN_HEIGHT)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
 	#undef GDISP_SCREEN_HEIGHT
+#endif
+#if defined(GDISP_SCREEN_WIDTH)
+	#warning "GDISP: This low level driver does not support setting a screen size. It is being ignored."
+	#undef GDISP_SCREEN_WIDTH
 #endif
 
 #define GDISP_DRIVER_VMT			GDISPVMT_ILI93xx
-#include "gdisp_lld_config.h"
-#include "../../../src/gdisp/gdisp_driver.h"
+#include "drivers/gdisp/ILI93xx/gdisp_lld_config.h"
+#include "src/gdisp/driver.h"
 
 #include "board_ILI93xx.h"
 
@@ -55,7 +54,7 @@
 #define dummy_read(g)               { volatile uint16_t dummy; dummy = read_data(g); (void) dummy; }
 #define write_reg(g, reg, data)     { write_index(g, reg); write_data(g, data); }
 
-static GFXINLINE uint16_t read_reg(GDisplay *g, uint32_t reg) {
+static inline uint16_t read_reg(GDisplay *g, uint32_t reg) {
   write_index(g, reg);
   return read_data(g);
  }

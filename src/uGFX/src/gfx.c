@@ -13,31 +13,13 @@
 /* Display various warnings from gfx_rules.h */
 #define GFX_DISPLAY_RULE_WARNINGS	TRUE
 
-#include "../gfx.h"
+#include "gfx.h"
 
-static bool_t gfxInitDone = FALSE;
+static bool_t initDone = FALSE;
 
 /* These init functions are defined by each module but not published */
 extern void _gosInit(void);
-extern void _gosPostInit(void);
 extern void _gosDeinit(void);
-#ifdef GFX_OS_PRE_INIT_FUNCTION
-		extern void GFX_OS_PRE_INIT_FUNCTION(void);
-#endif
-#ifdef GFX_OS_EXTRA_INIT_FUNCTION
-		extern void GFX_OS_EXTRA_INIT_FUNCTION(void);
-#endif
-#ifdef GFX_OS_EXTRA_DEINIT_FUNCTION
-		extern void GFX_OS_EXTRA_DEINIT_FUNCTION(void);
-#endif
-#if GFX_USE_GDRIVER
-	extern void _gdriverInit(void);
-	extern void _gdriverDeinit(void);
-#endif
-#if GFX_USE_GFILE
-	extern void _gfileInit(void);
-	extern void _gfileDeinit(void);
-#endif
 #if GFX_USE_GDISP
 	extern void _gdispInit(void);
 	extern void _gdispDeinit(void);
@@ -74,35 +56,22 @@ extern void _gosDeinit(void);
 	extern void _gmiscInit(void);
 	extern void _gmiscDeinit(void);
 #endif
-#if GFX_USE_GTRANS
-	extern void _gtransInit(void);
-	extern void _gtransDeinit(void);
-#endif
 
 void gfxInit(void)
 {
 	/* Ensure we only initialise once */
-	if (gfxInitDone)
+	if (initDone)
 		return;
-	gfxInitDone = TRUE;
+	initDone = TRUE;
 
 	// These must be initialised in the order of their dependancies
 
-	#ifdef GFX_OS_PRE_INIT_FUNCTION
-		GFX_OS_PRE_INIT_FUNCTION();
-	#endif
 	_gosInit();
-	#ifdef GFX_OS_EXTRA_INIT_FUNCTION
-		GFX_OS_EXTRA_INIT_FUNCTION();
-	#endif
 	#if GFX_USE_GQUEUE
 		_gqueueInit();
 	#endif
 	#if GFX_USE_GMISC
 		_gmiscInit();
-	#endif
-	#if GFX_USE_GTRANS
-		_gtransInit();
 	#endif
 	#if GFX_USE_GEVENT
 		_geventInit();
@@ -110,14 +79,11 @@ void gfxInit(void)
 	#if GFX_USE_GTIMER
 		_gtimerInit();
 	#endif
-	#if GFX_USE_GDRIVER
-		_gdriverInit();
-	#endif
-	#if GFX_USE_GFILE
-		_gfileInit();
-	#endif
 	#if GFX_USE_GDISP
 		_gdispInit();
+	#endif
+	#if GFX_USE_GWIN
+		_gwinInit();
 	#endif
 	#if GFX_USE_GINPUT
 		_ginputInit();
@@ -128,26 +94,16 @@ void gfxInit(void)
 	#if GFX_USE_GAUDIO
 		_gaudioInit();
 	#endif
-	#if GFX_USE_GWIN
-		_gwinInit();
-	#endif
-	_gosPostInit();
-	#if GFX_OS_CALL_UGFXMAIN
-		uGFXMain();
-	#endif
 }
 
 void gfxDeinit(void)
 {
-	if (!gfxInitDone)
+	if (!initDone)
 		return;
-	gfxInitDone = FALSE;
+	initDone = FALSE;
 
 	// We deinitialise the opposite way as we initialised
-	#if GFX_USE_GWIN
-		_gwinDeinit();
-	#endif
-	#if GFX_USE_GAUDIO
+	#if GFX_USE_GAUDIN
 		_gaudioDeinit();
 	#endif
 	#if GFX_USE_GADC
@@ -156,14 +112,11 @@ void gfxDeinit(void)
 	#if GFX_USE_GINPUT
 		_ginputDeinit();
 	#endif
+	#if GFX_USE_GWIN
+		_gwinDeinit();
+	#endif
 	#if GFX_USE_GDISP
 		_gdispDeinit();
-	#endif
-	#if GFX_USE_GFILE
-		_gfileDeinit();
-	#endif
-	#if GFX_USE_GDRIVER
-		_gdriverDeinit();
 	#endif
 	#if GFX_USE_GTIMER
 		_gtimerDeinit();
@@ -171,17 +124,12 @@ void gfxDeinit(void)
 	#if GFX_USE_GEVENT
 		_geventDeinit();
 	#endif
-	#if GFX_USE_GTRANS
-		_gtransDeinit();
-	#endif
 	#if GFX_USE_GMISC
 		_gmiscDeinit();
 	#endif
 	#if GFX_USE_GQUEUE
 		_gqueueDeinit();
 	#endif
-	#ifdef GFX_OS_EXTRA_DEINIT_FUNCTION
-		GFX_OS_EXTRA_DEINIT_FUNCTION();
-	#endif
 	_gosDeinit();
 }
+

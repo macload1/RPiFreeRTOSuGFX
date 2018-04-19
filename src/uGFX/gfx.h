@@ -38,30 +38,26 @@
 	#define TRUE        -1
 #endif
 
-// Macro concatination and strify - not API documented
-#define GFXCATX(a, b)	GFXCAT(a, b)
-#define GFXCAT(a, b)	a ## b
-#define GFXSTRX(a)		GFXSTR(a)
-#define GFXSTR(a)		#a
+/**
+ * @brief   Mark a function as deprecated.
+ */
+#ifndef DEPRECATED
+	#if defined(__GNUC__) || defined(__MINGW32_) || defined(__CYGWIN__)
+		#define DEPRECATED(msg)		__attribute__((deprecated(msg)))
+	#elif defined(_MSC_VER)
+		#define DEPRECATED(msg)		__declspec(deprecated(msg))
+	#else
+		#define DEPRECATED(msg)
+	#endif
+#endif
 
 /* gfxconf.h is the user's project configuration for the GFX system. */
 #include "gfxconf.h"
-
-/* Include Compiler and CPU support */
-#include "src/gfx_compilers.h"
 
 /**
  * @name    GFX sub-systems that can be turned on
  * @{
  */
-	/**
-	 * @brief   GFX Driver API
-	 * @details	Defaults to TRUE
-	 * @note	Not much useful can be done without a driver
-	 */
-	#ifndef GFX_USE_GDRIVER
-		#define GFX_USE_GDRIVER	TRUE
-	#endif
 	/**
 	 * @brief   GFX Graphics Display Basic API
 	 * @details	Defaults to FALSE
@@ -151,32 +147,23 @@
 	#ifndef GFX_USE_GFILE
 		#define GFX_USE_GFILE	FALSE
 	#endif
-	/**
-	 * @brief   GFX Translation Support API
-	 * @details	Defaults to FALSE
-	 */
-	#ifndef GFX_USE_GTRANS
-		#define GFX_USE_GTRANS	FALSE
-	#endif
 /** @} */
 
 /**
  * Get all the options for each sub-system.
  *
  */
-#include "src/gos/gos_options.h"
-#include "src/gdriver/gdriver_options.h"
-#include "src/gfile/gfile_options.h"
-#include "src/gmisc/gmisc_options.h"
-#include "src/gtrans/gtrans_options.h"
-#include "src/gqueue/gqueue_options.h"
-#include "src/gevent/gevent_options.h"
-#include "src/gtimer/gtimer_options.h"
-#include "src/gdisp/gdisp_options.h"
-#include "src/gwin/gwin_options.h"
-#include "src/ginput/ginput_options.h"
-#include "src/gadc/gadc_options.h"
-#include "src/gaudio/gaudio_options.h"
+#include "src/gos/sys_options.h"
+#include "src/gfile/sys_options.h"
+#include "src/gmisc/sys_options.h"
+#include "src/gqueue/sys_options.h"
+#include "src/gevent/sys_options.h"
+#include "src/gtimer/sys_options.h"
+#include "src/gdisp/sys_options.h"
+#include "src/gwin/sys_options.h"
+#include "src/ginput/sys_options.h"
+#include "src/gadc/sys_options.h"
+#include "src/gaudio/sys_options.h"
 
 /**
  * Interdependency safety checks on the sub-systems.
@@ -186,36 +173,32 @@
 #ifndef GFX_DISPLAY_RULE_WARNINGS
 	#define GFX_DISPLAY_RULE_WARNINGS	FALSE
 #endif
-#include "src/gwin/gwin_rules.h"
-#include "src/ginput/ginput_rules.h"
-#include "src/gdisp/gdisp_rules.h"
-#include "src/gaudio/gaudio_rules.h"
-#include "src/gadc/gadc_rules.h"
-#include "src/gevent/gevent_rules.h"
-#include "src/gtimer/gtimer_rules.h"
-#include "src/gqueue/gqueue_rules.h"
-#include "src/gmisc/gmisc_rules.h"
-#include "src/gtrans/gtrans_rules.h"
-#include "src/gfile/gfile_rules.h"
-#include "src/gdriver/gdriver_rules.h"
-#include "src/gos/gos_rules.h"
+#include "src/gwin/sys_rules.h"
+#include "src/ginput/sys_rules.h"
+#include "src/gdisp/sys_rules.h"
+#include "src/gaudio/sys_rules.h"
+#include "src/gadc/sys_rules.h"
+#include "src/gevent/sys_rules.h"
+#include "src/gtimer/sys_rules.h"
+#include "src/gqueue/sys_rules.h"
+#include "src/gmisc/sys_rules.h"
+#include "src/gfile/sys_rules.h"
+#include "src/gos/sys_rules.h"
 
 /**
  *  Include the sub-system header files
  */
-#include "src/gos/gos.h"
-//#include "src/gdriver/gdriver.h"			// This module is only included by source that needs it.
-#include "src/gfile/gfile.h"
-#include "src/gmisc/gmisc.h"
-#include "src/gtrans/gtrans.h"
-#include "src/gqueue/gqueue.h"
-#include "src/gevent/gevent.h"
-#include "src/gtimer/gtimer.h"
-#include "src/gdisp/gdisp.h"
-#include "src/gwin/gwin.h"
-#include "src/ginput/ginput.h"
-#include "src/gadc/gadc.h"
-#include "src/gaudio/gaudio.h"
+#include "src/gos/sys_defs.h"
+#include "src/gfile/sys_defs.h"
+#include "src/gmisc/sys_defs.h"
+#include "src/gqueue/sys_defs.h"
+#include "src/gevent/sys_defs.h"
+#include "src/gtimer/sys_defs.h"
+#include "src/gdisp/sys_defs.h"
+#include "src/gwin/sys_defs.h"
+#include "src/ginput/sys_defs.h"
+#include "src/gadc/sys_defs.h"
+#include "src/gaudio/sys_defs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -227,15 +210,6 @@ extern "C" {
 	 * @note	This will initialise each sub-system that has been turned on.
 	 * 			For example, if GFX_USE_GDISP is defined then display will be initialised
 	 * 			and cleared to black.
-	 * @note	If you define GFX_OS_NO_INIT as TRUE in your gfxconf.h file then ugfx doesn't try to
-	 * 			initialise the operating system for you when you call @p gfxInit().
-	 * @note	If you define GFX_OS_EXTRA_INIT_FUNCTION in your gfxconf.h file the macro is the
-	 * 			name of a void function with no parameters that is called immediately after
-	 * 			operating system initialisation (whether or not GFX_OS_NO_INIT is set).
-	 * @note	If you define GFX_OS_EXTRA_DEINIT_FUNCTION in your gfxconf.h file the macro is the
-	 * 			name of a void function with no parameters that is called immediately before
-	 * 			operating system de-initialisation (as ugfx is exiting).
-	 * @note	If GFX_OS_CALL_UGFXMAIN is set uGFXMain() is called after all initialisation is complete.
 	 *
 	 * @api
 	 */
@@ -250,17 +224,6 @@ extern "C" {
 	 */
 	void gfxDeinit(void);
 
-	#if GFX_OS_CALL_UGFXMAIN || defined(__DOXYGEN__)
-		/**
-		 * @brief	The function containing all the user uGFX application code.
-		 *
-		 * @note	This is called by gfxInit() and is expected to never return.
-		 * 			It is defined by the user.
-		 *
-		 * @pre		GFX_OS_CALL_UGFXMAIN is GFXON
-		 */
-		void uGFXMain(void);
-	#endif
 #ifdef __cplusplus
 }
 #endif

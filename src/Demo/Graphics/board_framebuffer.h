@@ -8,7 +8,8 @@
 
 #include "framebuffer.h"
 
-#define GDISP_LLD_PIXELFORMAT					GDISP_PIXELFORMAT_RGB888 //GDISP_PIXELFORMAT_RGB565
+//#define GDISP_LLD_PIXELFORMAT					GDISP_PIXELFORMAT_RGB888
+#define GDISP_LLD_PIXELFORMAT					GDISP_PIXELFORMAT_RGB565
 
 // Set this to your frame buffer pixel format.
 #ifndef GDISP_LLD_PIXELFORMAT
@@ -23,7 +24,7 @@
 static void board_init(GDisplay *g, fbInfo *fbi) {
 	// Initialize your frame buffer device here
 
-	if(fb_init(480, 272, 32) == 0)
+	if(fb_init(480, 272, 16) == 0)
 	{
 		while(1){}
 	}

@@ -46,7 +46,7 @@
 #if USE_METHOD_1
 	int main(void) {
 		coord_t		width, height;
-		coord_t		display, i, j, cnt;
+		coord_t		display, i, j;
 		font_t		f;
 		GDisplay	*g;
 		char		buf[16];
@@ -58,8 +58,7 @@
 		f = gdispOpenFont("*");
 
 		/* Cycle through each display */
-		cnt = gdispGetDisplayCount();
-		for(display = 0; display < cnt; display++) {
+		for(display = 0; display < GDISP_TOTAL_DISPLAYS; display++) {
 
 			// Get the specified display
 			g = gdispGetDisplay(display);
@@ -69,14 +68,9 @@
 			height = gdispGGetHeight(g);
 
 			/* Draw draw draw */
-			sprintg(buf, "Display %u", display);
-			if (width < 128) {
-				gdispGDrawBox(g, 0, 0, width/2, height/2, Yellow);
-				gdispGFillStringBox(g, 0, height/2, width, height/2, buf, f, Black, Blue, justifyCenter);
-			} else {
-				gdispGDrawBox(g, 10, 10, width/2, height/2, Yellow);
-				gdispGFillStringBox(g, width/2, height/2, width/2-10, height/2-10, buf, f, White, Blue, justifyCenter);
-			}
+			gdispGDrawBox(g, 10, 10, width/2, height/2, Yellow);
+			sprintf(buf, "Display %u", display);
+			gdispGFillStringBox(g, width/2, height/2, width/2-10, height/2-10, buf, f, White, Blue, justifyCenter);
 			gdispGDrawLine(g, 5, 30, width-50, height-40, Red);
 
 			for(i = 5, j = 0; i < width && j < height; i += 7, j += i/20)
@@ -90,7 +84,7 @@
 #else
 	int main(void) {
 		coord_t		width, height;
-		coord_t		display, i, j, cnt;
+		coord_t		display, i, j;
 		font_t		f;
 		char		buf[16];
 
@@ -101,8 +95,7 @@
 		f = gdispOpenFont("*");
 
 		/* Cycle through each display */
-		cnt = gdispGetDisplayCount();
-		for(display = 0; display < cnt; display++) {
+		for(display = 0; display < GDISP_TOTAL_DISPLAYS; display++) {
 
 			// Set the default display to the specified display
 			gdispSetDisplay(gdispGetDisplay(display));
@@ -112,14 +105,9 @@
 			height = gdispGetHeight();
 
 			/* Draw draw draw */
-			sprintg(buf, "Display %u", display);
-			if (width < 128) {
-				gdispDrawBox(0, 0, width/2, height/2, Yellow);
-				gdispFillStringBox(0, height/2, width, height/2, buf, f, Black, Blue, justifyCenter);
-			} else {
-				gdispDrawBox(10, 10, width/2, height/2, Yellow);
-				gdispFillStringBox(width/2, height/2, width/2-10, height/2-10, buf, f, White, Blue, justifyCenter);
-			}
+			gdispDrawBox(10, 10, width/2, height/2, Yellow);
+			sprintf(buf, "Display %u", display);
+			gdispFillStringBox(width/2, height/2, width/2-10, height/2-10, buf, f, White, Blue, justifyCenter);
 			gdispDrawLine(5, 30, width-50, height-40, Red);
 
 			for(i = 5, j = 0; i < width && j < height; i += 7, j += i/20)

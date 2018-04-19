@@ -406,6 +406,7 @@ void bcm2835_spi_end(void)
 
 void bcm2835_spi_setBitOrder(uint8_t order)
 {
+	(void)order;
 	// BCM2835_SPI_BIT_ORDER_MSBFIRST is the only one suported by SPI0
 }
 

@@ -29,8 +29,8 @@
  * the PWM frequency should be somewhere between 200 Hz to 200 kHz.
  */
 static const PWMConfig pwmcfg = {
-	20000,			/* 20 KHz PWM clock frequency. */
-	100,			/* PWM period is 100 cycles. */
+	1000000,       /* 1 MHz PWM clock frequency. */
+	100,           /* PWM period is 100 cycles. */
 	0,
 	{
 		{PWM_OUTPUT_ACTIVE_HIGH, 0},
@@ -42,7 +42,7 @@ static const PWMConfig pwmcfg = {
 	0
 };
 
-static GFXINLINE void init_board(GDisplay *g) {
+static inline void init_board(GDisplay *g) {
 
 	// As we are not using multiple displays we set g->board to NULL as we don't use it.
 	g->board = 0;
@@ -75,11 +75,8 @@ static GFXINLINE void init_board(GDisplay *g) {
 		palSetBusMode(&busE, PAL_MODE_ALTERNATE(12));
 
 		/* FSMC timing register configuration */
-//		FSMC_Bank1->BTCR[0 + 1] = (FSMC_BTR1_ADDSET_2 | FSMC_BTR1_ADDSET_1) \
-//				| (FSMC_BTR1_DATAST_2 | FSMC_BTR1_DATAST_1) \
-//				| FSMC_BTR1_BUSTURN_0;
-		FSMC_Bank1->BTCR[0 + 1] = (FSMC_BTR1_ADDSET_3 | FSMC_BTR1_ADDSET_0) \
-				| (FSMC_BTR1_DATAST_3 | FSMC_BTR1_DATAST_0) \
+		FSMC_Bank1->BTCR[0 + 1] = (FSMC_BTR1_ADDSET_2 | FSMC_BTR1_ADDSET_1) \
+				| (FSMC_BTR1_DATAST_2 | FSMC_BTR1_DATAST_1) \
 				| FSMC_BTR1_BUSTURN_0;
 
 		/* Bank1 NOR/PSRAM control register configuration
@@ -95,11 +92,11 @@ static GFXINLINE void init_board(GDisplay *g) {
 	}
 }
 
-static GFXINLINE void post_init_board(GDisplay *g) {
+static inline void post_init_board(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
+static inline void setpin_reset(GDisplay *g, bool_t state) {
 	(void) g;
 	if (state) {
 		CLR_RST;
@@ -108,44 +105,44 @@ static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
 	}
 }
 
-static GFXINLINE void set_backlight(GDisplay *g, uint8_t percent) {
+static inline void set_backlight(GDisplay *g, uint8_t percent) {
 	(void) g;
 	pwmEnableChannel(&PWMD4, 1, percent);
 }
 
-static GFXINLINE void acquire_bus(GDisplay *g) {
+static inline void acquire_bus(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void release_bus(GDisplay *g) {
+static inline void release_bus(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void write_index(GDisplay *g, uint16_t index) {
+static inline void write_index(GDisplay *g, uint16_t index) {
 	(void) g;
 	GDISP_REG = index;
 }
 
-static GFXINLINE void write_data(GDisplay *g, uint16_t data) {
+static inline void write_data(GDisplay *g, uint16_t data) {
 	(void) g;
 	GDISP_RAM = data;
 }
 
-static GFXINLINE void setreadmode(GDisplay *g) {
+static inline void setreadmode(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE void setwritemode(GDisplay *g) {
+static inline void setwritemode(GDisplay *g) {
 	(void) g;
 }
 
-static GFXINLINE uint16_t read_data(GDisplay *g) {
+static inline uint16_t read_data(GDisplay *g) {
 	(void) g;
 	return GDISP_RAM;
 }
 
 #if defined(GDISP_USE_DMA)
-	static GFXINLINE void dma_with_noinc(GDisplay *g, color_t *buffer, int area) {
+	static inline void dma_with_noinc(GDisplay *g, color_t *buffer, int area) {
 		(void) g;
 		dmaStreamSetPeripheral(GDISP_DMA_STREAM, buffer);
 		dmaStreamSetMode(GDISP_DMA_STREAM, STM32_DMA_CR_PL(0) | STM32_DMA_CR_PSIZE_HWORD | STM32_DMA_CR_MSIZE_HWORD | STM32_DMA_CR_DIR_M2M);
@@ -156,7 +153,7 @@ static GFXINLINE uint16_t read_data(GDisplay *g) {
 		}
 	}
 
-	static GFXINLINE void dma_with_inc(GDisplay *g, color_t *buffer, int area) {
+	static inline void dma_with_inc(GDisplay *g, color_t *buffer, int area) {
 		(void) g;
         dmaStreamSetPeripheral(GDISP_DMA_STREAM, buffer);
         dmaStreamSetMode(GDISP_DMA_STREAM, STM32_DMA_CR_PL(0) | STM32_DMA_CR_PINC | STM32_DMA_CR_PSIZE_HWORD | STM32_DMA_CR_MSIZE_HWORD | STM32_DMA_CR_DIR_M2M);
