@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 #include <FreeRTOS.h>
 #include <task.h>
 
@@ -11,25 +14,29 @@
 #include "gfx.h"
 
 void task1() {
-    //struct AMessage *pxMessage;
+    struct AMessage testMessage;
 	int i = 0;
 	while(1) {
 		i++;
 		SetGpio(47, 1);
-        //pxMessage.consoleID = CONSOLE_GLOBAL;
-        //pxMessage->message
-		vTaskDelay(2000);
+        testMessage.consoleID = CONSOLE_WIFI;
+        sprintf(testMessage.message, "Hello %d\r\n", i);
+        xQueueSend(g_pLCDQueue, &testMessage, 0);
+		vTaskDelay(200);
 	}
 }
 
 void task2() {
-
+    struct AMessage testMessage;
 	int i = 0;
 	while(1) {
 		i++;
-		vTaskDelay(1000);
+		vTaskDelay(100);
 		SetGpio(47, 0);
-		vTaskDelay(1000);
+        testMessage.consoleID = CONSOLE_GLOBAL;
+        sprintf(testMessage.message, "Task 2 %d\r\n", i);
+        xQueueSend(g_pLCDQueue, &testMessage, 0);
+		vTaskDelay(100);
 	}
 }
 
@@ -75,8 +82,8 @@ int main(void) {
     SetGpioDirection(47, 1);        // Set LED as Output
 
 
-	xTaskCreate(task1, "LED_0", 128, NULL, 0, NULL);
-	xTaskCreate(task2, "LED_1", 128, NULL, 0, NULL);
+	xTaskCreate(task1, "LED_0", 1280, NULL, 0, NULL);
+	xTaskCreate(task2, "LED_1", 1280, NULL, 0, NULL);
     
     // Create the GUI task
     xTaskCreate(guiThread, "GUI_Thread", configMINIMAL_STACK_SIZE + 1024, NULL, 3, NULL);

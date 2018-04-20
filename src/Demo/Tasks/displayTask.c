@@ -87,7 +87,7 @@ void guiThread()
     //
     // Create a queue for sending messages to the LED task.
     //
-    g_pLCDQueue = xQueueCreate(LCD_QUEUE_SIZE, sizeof( struct AMessage * ) );
+    g_pLCDQueue = xQueueCreate(LCD_QUEUE_SIZE, sizeof( struct AMessage ) );
     /* We want this queue to be viewable in a RTOS kernel aware debugger, so register it. */
 	vQueueAddToRegistry( g_pLCDQueue, "LCDQueue" );
     if( g_pLCDQueue == 0 )
@@ -96,12 +96,8 @@ void guiThread()
         gwinPrintf(GW_global, "Failed to create the queue.\r\n");
     }
 
-    //struct AMessage 
-    char message[50];
-    sprintf(message, "Hello %d\r\n", 4);
-    gwinPrintf(GW_wifi, message);
 
-	struct AMessage *pxRxedMessage;
+	struct AMessage pxRxedMessage;
     //
     // Loop forever.
     //
@@ -112,10 +108,13 @@ void guiThread()
 		//
 		if(xQueueReceive(g_pLCDQueue, &pxRxedMessage, portMAX_DELAY) == pdPASS)
 		{
-            if(pxRxedMessage->consoleID == CONSOLE_GLOBAL)
-                gwinPrintf(GW_global, pxRxedMessage->message);
-            else if(pxRxedMessage->consoleID == CONSOLE_WIFI)
-                gwinPrintf(GW_wifi, pxRxedMessage->message);
+            //gwinPrintf(GW_global, "Received message\r\n");
+            if(pxRxedMessage.consoleID == CONSOLE_GLOBAL)
+                gwinPrintf(GW_global, pxRxedMessage.message);
+            else if(pxRxedMessage.consoleID == CONSOLE_WIFI)
+            {
+                gwinPrintf(GW_wifi, pxRxedMessage.message);
+            }
 		}
         bcm2835_aux_muart_transfernb("looping Display Task\r\n");
     }
