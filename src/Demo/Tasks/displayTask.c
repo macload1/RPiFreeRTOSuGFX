@@ -44,6 +44,8 @@ void guiThread()
 	// Get the screen size
     width = 480; //gdispGetWidth();
     height = 272; //gdispGetHeight();
+    //~ width = 800; //gdispGetWidth();
+    //~ height = 480; //gdispGetHeight();
     
     bcm2835_aux_muart_transfernb("Entered Display Task\r\n");
     font_t	font1;
@@ -116,7 +118,7 @@ void guiThread()
                 gwinPrintf(GW_wifi, pxRxedMessage.message);
             }
 		}
-        bcm2835_aux_muart_transfernb("looping Display Task\r\n");
+        //bcm2835_aux_muart_transfernb("looping Display Task\r\n");
     }
     
     

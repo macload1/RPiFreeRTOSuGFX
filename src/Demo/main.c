@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <FreeRTOS.h>
 #include <task.h>
@@ -13,15 +14,34 @@
 
 #include "gfx.h"
 
+#define BACKLIGHT_PWM_CHANNEL           0
+
 void task1() {
     struct AMessage testMessage;
 	int i = 0;
+    char *entry;
 	while(1) {
 		i++;
-		SetGpio(47, 1);
+		//SetGpio(47, 1);
         testMessage.consoleID = CONSOLE_WIFI;
-        sprintf(testMessage.message, "Hello %d\r\n", i);
-        xQueueSend(g_pLCDQueue, &testMessage, 0);
+        entry = (char *) malloc(1024*1024 * sizeof(char));
+        if (!entry)
+        {
+            sprintf(testMessage.message, "Malloc failed\r\n");
+        }
+        else
+        {
+            sprintf(entry, "Hello");
+            sprintf(testMessage.message, "Ptr address: %u\r\n", (unsigned int)entry);
+        }
+        if(entry[0] == 'H')
+            xQueueSend(g_pLCDQueue, &testMessage, 0);
+        else
+        {
+            testMessage.consoleID = CONSOLE_GLOBAL;
+            xQueueSend(g_pLCDQueue, &testMessage, 0);
+        }
+        free(entry);
 		vTaskDelay(200);
 	}
 }
@@ -32,7 +52,7 @@ void task2() {
 	while(1) {
 		i++;
 		vTaskDelay(100);
-		SetGpio(47, 0);
+		//SetGpio(47, 0);
         testMessage.consoleID = CONSOLE_GLOBAL;
         sprintf(testMessage.message, "Task 2 %d\r\n", i);
         xQueueSend(g_pLCDQueue, &testMessage, 0);
@@ -79,8 +99,20 @@ int main(void) {
     bcm2835_aux_muart_transfernb("Hello World\r\n");
     
     SetGpioFunction(47, 1);			// Act led
-    SetGpioDirection(47, 1);        // Set LED as Output
-
+    SetGpioDirection(47, 1);        // Set LED as Output.
+    SetGpio(47, 1);                 // Set LED off
+    
+    //~ SetGpioFunction(18, 1);			// Backlight Enable
+    //~ SetGpioDirection(18, 1);        // Set backlight enable as Output
+    //~ SetGpio(18, 1);                 // Enable backlight
+    
+    bcm2835_gpio_fsel(18, BCM2835_GPIO_FSEL_ALT5);          // Set PWM0 mode
+    bcm2835_pwm_set_clock(BCM2835_PWM_CLOCK_DIVIDER_16);    // 1.2MHz
+    bcm2835_pwm_set_mode(BACKLIGHT_PWM_CHANNEL, 1, 1);      // PWM channel enabled
+    bcm2835_pwm_set_range(BACKLIGHT_PWM_CHANNEL, 1024);     // Range: 1024
+    
+    bcm2835_pwm_set_data(BACKLIGHT_PWM_CHANNEL, 100);       // Half brightness
+    
 
 	xTaskCreate(task1, "LED_0", 1280, NULL, 0, NULL);
 	xTaskCreate(task2, "LED_1", 1280, NULL, 0, NULL);
@@ -126,3 +158,35 @@ void vApplicationTickHook( void )
 	functions can be used (those that end in FromISR()). */
 }
 
+//*****************************************************************************
+//
+//! \brief  Overwrite the GCC _sbrk function which check the heap limit related
+//!         to the stack pointer.
+//!			In case of freertos this checking will fail.
+//! \param  none
+//!
+//! \return none
+//!
+//*****************************************************************************
+void * _sbrk(uint32_t delta)
+{
+    extern char _end;     /* Defined by the linker */
+    extern char __heap_end;
+    static char *heap_end;
+    static char *heap_limit;
+    char *prev_heap_end;
+
+    if(heap_end == 0)
+    {
+        heap_end = &_end;
+        heap_limit = &__heap_end;
+    }
+
+    prev_heap_end = heap_end;
+    if(prev_heap_end + delta > heap_limit)
+    {
+        return((void *) -1L);
+    }
+    heap_end += delta;
+    return((void *) prev_heap_end);
+}

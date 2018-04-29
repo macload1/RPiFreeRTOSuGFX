@@ -66,6 +66,8 @@ overscan_top=0
 overscan_bottom=0
 framebuffer_width=480
 framebuffer_height=272
+#framebuffer_width=800
+#framebuffer_height=480
  
 # enable the DPI display
 enable_dpi_lcd=1
@@ -81,6 +83,7 @@ dpi_output_format=458771
  
 # set up the size to 480x272
 hdmi_timings=480 0 40 48 88 272 0 13 3 32 0 0 0 60 0 32000000 3
+#hdmi_timings=800 0 40 48 88 480 0 13 3 32 0 0 0 60 0 32000000 6
 
 # 0 is the normal configuration. 1 is 90 degrees. 2 is 180 degress. 3 is 270 degrees.
 display_rotate=2

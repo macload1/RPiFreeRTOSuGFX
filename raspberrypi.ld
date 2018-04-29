@@ -9,7 +9,7 @@ MEMORY
 	RESERVED	(r)		: ORIGIN = 0x00000000, LENGTH = 32K
 	INIT_RAM	(rwx)	: ORIGIN = 0x00008000, LENGTH = 32K
 	RAM			(rwx)	: ORIGIN = 0x00010000, LENGTH = 128M
-	HEAP		(rwx)	: ORIGIN = 0x08010000, LENGTH = 128M
+	HEAP		(rwx)	: ORIGIN = 0x08010000, LENGTH = 64M
 }
 
 ENTRY(_start)
@@ -70,13 +70,14 @@ SECTIONS {
 		_end = end;
 		__end = end;
         *(.heap)
-        __heap_end = .;
+        __heap_end = ORIGIN(HEAP) + LENGTH(HEAP);
     } > HEAP
     /*PROVIDE(__HEAP_START = __bss_end );*/
-
+    
 	/**
 	 *	Stack starts at the top of the RAM, and moves down!
+	 * _estack = ORIGIN(RAM) + LENGTH(RAM);
 	 **/
-	_estack = ORIGIN(RAM) + LENGTH(RAM);
+	_estack = ORIGIN(HEAP) + LENGTH(HEAP);
 }
 

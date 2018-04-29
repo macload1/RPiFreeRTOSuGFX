@@ -13,7 +13,7 @@ OBJCOPY = ${ARCH}-objcopy
 PLATFORM = raspi
 LINKER_SCRIPT = raspberrypi.ld
 
-CFLAGS = -march=armv6z -g -Wall -Wextra
+CFLAGS = -march=armv6z -g -Wall -Wextra -D__HEAP_SIZE=1024 # -DSL_FULL
 ASFLAGS = -g 
 
 CFLAGS_FOR_TARGET = #-mcpu=arm1176jzf-s
@@ -31,6 +31,13 @@ MODULES += Demo/Drivers
 MODULES += Demo/Graphics
 MODULES += Demo/Tasks
 MODULES += Demo
+#MODULES += SimpleLink/source/ti/drivers/net/wifi
+#MODULES += SimpleLink/source/ti/drivers/net/wifi/source
+#MODULES += SimpleLink/source/ti/drivers/net/wifi/slnetif
+#MODULES += SimpleLink/source/ti/drivers/net/wifi/porting
+#MODULES += SimpleLink/source/ti/net
+#MODULES += SimpleLink/source/ti/net/bsd
+#MODULES += SimpleLink/source/ti/net/json/source
 
 SRC_DIR := $(addprefix src/,$(MODULES))
 INC_DIR := $(addsuffix /include,$(SRC_DIR))
@@ -43,6 +50,7 @@ INCLUDEDIRS += src/Demo/Graphics
 INCLUDEDIRS += src/Demo/Tasks
 INCLUDEDIRS += src/Demo
 INCLUDEDIRS += $(GFXINC)
+INCLUDEDIRS += src/SimpleLink/source
 
 INCLUDES := $(addprefix -I,$(INCLUDEDIRS))
 
@@ -73,7 +81,7 @@ bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_
 #bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-4_8-2014q1/arm-none-eabi/lib" -lstdc++
 #bin/kernel.elf: LDFLAGS += -L "/home/macload1/RPi/BareMetal/gcc-arm-none-eabi-4_8-2014q1/arm-none-eabi/lib" -lm
 bin/kernel.elf: $(OBJ)
-	${LD} $(OBJ) -o $@ -T $(LINKER_SCRIPT) ${LDFLAGS}
+	${LD} $(OBJ) -o $@ -T $(LINKER_SCRIPT) ${LDFLAGS} -Wl,-Map=bin/kernel.map
 
 clean:
 	rm -f bin/*.elf bin/*.img bin/*.map $(OBJ)

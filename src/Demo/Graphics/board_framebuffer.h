@@ -25,6 +25,7 @@ static void board_init(GDisplay *g, fbInfo *fbi) {
 	// Initialize your frame buffer device here
 
 	if(fb_init(480, 272, 16) == 0)
+	//~ if(fb_init(800, 480, 16) == 0)
 	{
 		while(1){}
 	}
@@ -45,6 +46,8 @@ static void board_init(GDisplay *g, fbInfo *fbi) {
 		// TODO: Set the details of the frame buffer
 		g->g.Width = 480;
 		g->g.Height = 272;
+		//~ g->g.Width = 800;
+		//~ g->g.Height = 480;
 		g->g.Backlight = 100;
 		g->g.Contrast = 50;
 		fbi->linelen = g->g.Width * sizeof(LLDCOLOR_TYPE);	// bytes per row
