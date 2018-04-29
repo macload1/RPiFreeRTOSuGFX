@@ -1,0 +1,73 @@
+SIMPLELINK_WIFI_PLUGIN_PATH ?= $(abspath ../../../../..)
+
+include $(SIMPLELINK_WIFI_PLUGIN_PATH)/imports.mak
+
+ROOT=$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/ti/net/ota
+
+#
+# Source path
+#
+VPATH = $(ROOT)/source:$(ROOT)/source/CdnVendors
+
+ifdef CGTOOLS
+CC = "$(CGTOOLS)/bin/armcl"
+AR = "$(CGTOOLS)/bin/armar"
+STDINC = "$(CGTOOLS)/include"
+else
+CC = "$(CCS_ARMCOMPILER)/bin/armcl"
+AR = "$(CCS_ARMCOMPILER)/bin/armar"
+STDINC = "$(CCS_ARMCOMPILER)/include"
+endif
+
+#
+# Include path
+#
+IPATH  = -I$(ROOT)
+IPATH += -I$(ROOT)/source
+IPATH += -I$(ROOT)/source/CdnVendors
+IPATH += -I$(SIMPLELINK_WIFI_PLUGIN_PATH)/source
+IPATH += -I$(STDINC)
+
+ifeq ($(DRIVER_PLATFORM),m4f)
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source
+IPATH += -I$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/third_party/mbedtls/include/
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=fpv4spd16 --symdebug:dwarf -I$(IPATH)
+else
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=vfplib --symdebug:dwarf -I$(IPATH)
+endif
+
+CFILES = \
+    CdnClient.c \
+    ota_archive.c \
+    ota_httpclient.c \
+    ota_json.c \
+    ota_lib.c \
+    CdnDropboxV2.c \
+    CdnGithub.c
+
+OBJCFILES = $(CFILES:.c=.obj)
+
+ifeq ($(DRIVER_PLATFORM),m4f)
+all: m4f/ota.a
+m4f/ota.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ mkdir -p m4f
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+else
+all: ota.a
+ota.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+endif
+
+%.obj:%.c
+	@ echo cc $@ ...
+	@ $(CC) $(CFLAGS) $<
+
+clean:
+	@ echo cleaning ...
+	@ $(RM) *.obj > $(DEVNULL) 2>&1
+	@ $(RM) *.a > $(DEVNULL) 2>&1
+	@ $(RM) -rf m4f > $(DEVNULL) 2>&1

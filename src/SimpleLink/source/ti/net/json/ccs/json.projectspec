@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+  
+    <project
+        title="CC3x20 JSON Library"
+        name="json"
+        toolChain="TI"
+        products="com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN;com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN"
+        device="Custom MSP432 Device"
+        outputType="staticLibrary"
+        ignoreDefaultDeviceSettings="true"
+        autoGenerateMakefiles="false"
+        buildCommand="${CCS_UTILS_DIR}/bin/gmake"
+        buildCommandFlags="-k -j 4 -C ${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/net/json/ccs/ -f makefile.defs DRIVER_PLATFORM=m4f CGTOOLS=${CG_TOOL_ROOT}"
+        buildLocation="${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/net/json/ccs/">
+        <file path="../source/json.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../source/json_engine.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../source/parse_common.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../source/utils.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+    </project>
+    
+</projectSpec>
+

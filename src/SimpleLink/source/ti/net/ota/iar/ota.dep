@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>2</fileVersion>
+    <fileChecksum>2796638958</fileChecksum>
+    <configuration>
+        <name>Debug</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\source\ota_lib.h</file>
+            <file>$PROJ_DIR$\..\otauser.h</file>
+            <file>$PROJ_DIR$\..\source\CdnClient.c</file>
+            <file>$PROJ_DIR$\..\source\CdnVendors\CdnDropboxV2.c</file>
+            <file>$PROJ_DIR$\..\source\ota_json.h</file>
+            <file>$PROJ_DIR$\..\source\CdnVendors\CdnGithub.h</file>
+            <file>$PROJ_DIR$\..\source\CdnVendors\CdnVendors.h</file>
+            <file>$PROJ_DIR$\..\source\ota_archive.h</file>
+            <file>$PROJ_DIR$\..\source\CdnClient.h</file>
+            <file>$PROJ_DIR$\..\ota.h</file>
+            <file>$PROJ_DIR$\..\source\ota_httpclient.h</file>
+            <file>$PROJ_DIR$\..\source\CdnVendors\CdnDropboxV2.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\..\simplelink_msp432p4_sdk_1_50_00_12\source\ti\drivers\dpl\MutexP.h</file>
+            <file>$PROJ_DIR$\..\..\json\include\json.h</file>
+            <file>$PROJ_DIR$\..\..\json\include\json_engine.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\device.h</file>
+            <file>$PROJ_DIR$\m4f\ota.a</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\source\objInclusion.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\netapp.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\netutil.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\porting\user.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\trace.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\sl_socket.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\wlan.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\netcfg.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\errors.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\source\nonos.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\time.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\time32.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\..\simplelink_msp432p4_sdk_1_50_00_12\source\ti\drivers\dpl\ClockP.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\..\simplelink_msp432p4_sdk_1_50_00_12\source\ti\drivers\dpl\SemaphoreP.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\porting\cc_pal.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\eventreg.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\simplelink.h</file>
+            <file>$PROJ_DIR$\..\..\..\drivers\net\wifi\fs.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota.pbd</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnDropboxV2.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnDropboxV2.pbi</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnGithub.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnGithub.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnClient.pbi</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_archive.pbi</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_httpclient.pbi</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_json.pbi</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_lib.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_stdlib.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+            <file>$PROJ_DIR$\..\source\CdnVendors\CdnGithub.c</file>
+            <file>$PROJ_DIR$\..\source\ota_archive.c</file>
+            <file>$PROJ_DIR$\..\source\ota_httpclient.c</file>
+            <file>$PROJ_DIR$\..\source\ota_json.c</file>
+            <file>$PROJ_DIR$\..\source\ota_lib.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\third_party\mbedtls\include\mbedtls\check_config.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\limits.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\third_party\mbedtls\include\mbedtls\config.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\third_party\mbedtls\include\mbedtls\sha256.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_json.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_httpclient.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_archive.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnClient.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_lib.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnClient.__cstat.et</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnDropboxV2.__cstat.et</file>
+            <file>$PROJ_DIR$\Debug\Obj\CdnGithub.__cstat.et</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_archive.__cstat.et</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_httpclient.__cstat.et</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_json.__cstat.et</file>
+            <file>$PROJ_DIR$\Debug\Obj\ota_lib.__cstat.et</file>
+        </outputs>
+        <file>
+            <name>$PROJ_DIR$\..\source\CdnClient.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 73</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 71</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 51</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 58 47 48 46 49 50 44 57 37 21 28 29 35 34 56 15 33 12 32 30 31 18 22 38 23 19 24 16 25 20 26 36 27 9 10 6 11 8</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 49 32 16 31 37 15 33 47 38 36 35 44 6 57 50 18 19 20 48 34 56 10 8 58 9 46 21 22 23 24 25 26 27 28 29 12 30 1 11</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\source\CdnVendors\CdnDropboxV2.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 74</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 41</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 58 47 48 46 49 50 44 57 37 21 28 29 35 34 56 15 33 12 32 30 31 18 22 38 23 19 24 16 25 20 26 36 27 9 10 4 13 14 7 11 8 45</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 33 22 37 58 26 47 30 45 48 24 29 7 4 9 46 21 23 25 28 44 12 15 56 10 11 57 49 50 18 38 19 16 20 36 27 35 34 32 31 8 1 13 14</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\source\CdnVendors\CdnGithub.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 75</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 42</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 43</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 58 47 48 46 49 50 44 57 37 21 28 29 35 34 56 15 33 12 32 30 31 18 22 38 23 19 24 16 25 20 26 36 27 9 10 4 13 14 7 5 8</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 37 47 15 38 36 48 56 49 16 34 4 44 57 50 18 19 20 27 35 32 33 31 7 10 5 58 9 46 21 22 23 24 25 26 28 29 12 30 8 1 13 14</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\source\ota_archive.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 76</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 70</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 52</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 37 21 28 47 48 46 49 50 44 29 35 34 56 15 33 12 32 30 31 18 22 38 23 19 24 16 25 20 26 36 27 67 66 64 65 7 4 13 58 57 14 9</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 47 56 18 20 37 9 19 27 35 33 44 7 38 16 36 48 32 14 57 67 4 21 22 23 24 25 26 28 29 46 34 15 31 66 58 49 50 12 30 64 65 13</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\source\ota_httpclient.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 77</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 69</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 53</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 58 47 48 46 49 50 44 57 37 21 28 29 35 34 56 15 33 12 32 30 31 18 22 38 23 19 24 16 25 20 26 36 27 9 10</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 26 47 58 30 22 33 48 24 29 9 46 21 23 25 28 44 12 15 56 37 10 57 49 50 18 38 19 16 20 36 27 35 34 32 31 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\source\ota_json.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 78</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 68</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 54</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 58 47 48 46 49 50 44 57 37 21 28 29 35 34 56 15 33 12 32 30 31 18 22 38 23 19 24 16 25 20 26 36 27 9 4 13 14 7 8</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 33 18 15 50 20 32 31 44 57 47 19 27 35 37 8 49 38 16 36 48 34 56 13 4 58 9 46 21 22 23 24 25 26 28 29 12 30 1 7 14</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\source\ota_lib.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 79</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 72</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 55</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 58 47 48 46 49 50 44 57 56 1 37 21 28 29 35 34 15 33 12 32 30 31 18 22 38 23 19 24 16 25 20 26 36 27 9 8 7 0 10 4 13 14</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 56 49 36 48 37 47 38 7 16 34 33 13 1 10 44 57 50 18 19 20 27 35 32 15 14 8 0 4 46 58 9 21 22 23 24 25 26 28 29 12 30 31</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>IARCHIVE</name>
+                    <file> 17</file>
+                </tool>
+            </outputs>
+        </file>
+    </configuration>
+    <configuration>
+        <name>Release</name>
+        <outputs />
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>ILINK</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>[REBUILD_ALL]</name>
+        </forcedrebuild>
+    </configuration>
+</project>

@@ -1,0 +1,68 @@
+SIMPLELINK_WIFI_PLUGIN_PATH ?= $(abspath ../../../../..)
+
+include $(SIMPLELINK_WIFI_PLUGIN_PATH)/imports.mak
+
+ROOT=$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/ti/net/json
+
+#
+# Source path
+#
+VPATH = $(ROOT)/source
+
+ifdef CGTOOLS
+CC = "$(CGTOOLS)/bin/armcl"
+AR = "$(CGTOOLS)/bin/armar"
+STDINC = "$(CGTOOLS)/include"
+else
+CC = "$(CCS_ARMCOMPILER)/bin/armcl"
+AR = "$(CCS_ARMCOMPILER)/bin/armar"
+STDINC = "$(CCS_ARMCOMPILER)/include"
+endif
+
+#
+# Include path
+#
+IPATH  = -I$(ROOT)
+IPATH += -I$(ROOT)/source
+IPATH += -I$(ROOT)/include
+IPATH += -I$(SIMPLELINK_WIFI_PLUGIN_PATH)/source
+IPATH += -I$(STDINC)
+
+ifeq ($(DRIVER_PLATFORM),m4f)
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=fpv4spd16 --symdebug:dwarf -I$(IPATH) -D ALLOW_PARSING__TEMPLATE -D ALLOW_PARSING__JSON -D __TI_ARM__ -D USE__STANDRAD_LIBS
+else
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=vfplib --symdebug:dwarf -I$(IPATH) -D ALLOW_PARSING__TEMPLATE -D ALLOW_PARSING__JSON -D __TI_ARM__ -D USE__STANDRAD_LIBS
+endif
+
+CFILES = \
+    json.c \
+    json_engine.c \
+    parse_common.c \
+    utils.c
+
+OBJCFILES = $(CFILES:.c=.obj)
+
+ifeq ($(DRIVER_PLATFORM),m4f)
+all: m4f/json.a
+m4f/json.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ mkdir -p m4f
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+else
+json.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+endif
+
+%.obj:%.c
+	@ echo cc $@ ...
+	@ $(CC) $(CFLAGS) $<
+
+clean:
+	@ echo cleaning ...
+	@ $(RM) *.obj > $(DEVNULL) 2>&1
+	@ $(RM) *.a > $(DEVNULL) 2>&1
+	@ $(RM) -rf m4f > $(DEVNULL) 2>&1

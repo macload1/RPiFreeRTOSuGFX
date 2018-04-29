@@ -1,0 +1,94 @@
+
+SIMPLELINK_WIFI_PLUGIN_PATH ?= $(abspath ../../../../../..)
+
+include $(SIMPLELINK_WIFI_PLUGIN_PATH)/imports.mak
+
+ROOT=$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/ti/net/mqtt
+
+#
+# Source path
+#
+VPATH = $(ROOT)/client:$(ROOT)/common:$(ROOT)/interface:$(ROOT)/platform:$(ROOT)/server
+
+ifdef CGTOOLS
+CC = "$(CGTOOLS)/bin/armcl"
+AR = "$(CGTOOLS)/bin/armar"
+STDINC = "$(CGTOOLS)/include"
+else
+CC = "$(CCS_ARMCOMPILER)/bin/armcl"
+AR = "$(CCS_ARMCOMPILER)/bin/armar"
+STDINC = "$(CCS_ARMCOMPILER)/include"
+endif
+
+#
+# Include path
+#
+IPATH  = -I$(ROOT)
+IPATH += -I$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/
+IPATH += -I$(ROOT)/client
+IPATH += -I$(ROOT)/common
+IPATH += -I$(ROOT)/interface
+IPATH += -I$(ROOT)/platform
+IPATH += -I$(ROOT)/server
+IPATH += -I$(ROOT)/../../../
+IPATH += -I$(ROOT)/../../drivers/net/wifi
+
+ifeq ($(DRIVER_PLATFORM),MSP432P4)
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source/ti/posix/ccs/
+IPATH += -I$(STDINC)
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=fpv4spd16 --symdebug:dwarf $(IPATH)
+else ifeq ($(DRIVER_PLATFORM),MSP432E4)
+IPATH += -I$(SIMPLELINK_MSP432E4_SDK_INSTALL_DIR)/source
+IPATH += -I$(SIMPLELINK_MSP432E4_SDK_INSTALL_DIR)/source/ti/posix/ccs/
+IPATH += -I$(STDINC)
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=fpv4spd16 --symdebug:dwarf -I$(IPATH)
+else
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=vfplib --symdebug:dwarf -I$(IPATH)
+endif
+
+CFILES = \
+    cc32xx_sl_net.c \
+    client_core.c \
+    mqtt_client.c \
+    mqtt_common.c \
+    client_mgmt.c \
+    mqtt_server.c \
+    server_core.c \
+    server_pkts.c \
+    server_plug.c \
+    server_util.c
+
+OBJCFILES = $(CFILES:.c=.obj)
+
+ifeq ($(DRIVER_PLATFORM),MSP432P4)
+all: msp432p4/mqtt_client_server.a
+msp432p4/mqtt_client_server.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ mkdir -p msp432p4
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+else ifeq ($(DRIVER_PLATFORM),MSP432E4)
+all: msp432e4/mqtt_client_server.a
+msp432e4/mqtt_client_server.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ mkdir -p msp432e4
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+else
+mqtt_client_server.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+endif
+
+%.obj:%.c
+	@ echo cc $@ ...
+	@ $(CC) $(CFLAGS) $<
+
+clean:
+	@ echo cleaning ...
+	@ $(RM) *.obj > $(DEVNULL) 2>&1
+	@ $(RM) *.a > $(DEVNULL) 2>&1
+	@ $(RM) -rf msp432p4 > $(DEVNULL) 2>&1
+	@ $(RM) -rf msp432e4 > $(DEVNULL) 2>&1

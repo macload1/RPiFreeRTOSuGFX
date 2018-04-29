@@ -1,0 +1,86 @@
+SIMPLELINK_WIFI_PLUGIN_PATH ?= $(abspath ../../../../../..)
+
+include $(SIMPLELINK_WIFI_PLUGIN_PATH)/imports.mak
+
+ROOT=$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/ti/net/mqtt
+
+#
+# Source path
+#
+VPATH = $(ROOT)/client:$(ROOT)/common:$(ROOT)/interface:$(ROOT)/platform:$(ROOT)/server
+
+CC = "$(IAR_ARMCOMPILER)/bin/iccarm"
+ASM = "$(IAR_ARMCOMPILER)/bin/iasmarm"
+AR = "$(IAR_ARMCOMPILER)/bin/iarchive"
+
+STDINC = "$(IAR_ARMCOMPILER)/include"
+
+#
+# Include path
+#
+IPATH  = -I$(ROOT)
+IPATH += -I$(ROOT)/client
+IPATH += -I$(ROOT)/common
+IPATH += -I$(ROOT)/interface
+IPATH += -I$(ROOT)/platform
+IPATH += -I$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/
+IPATH += -I$(ROOT)/server
+
+ifeq ($(DRIVER_PLATFORM),MSP432P4)
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source/ti/posix/iar/
+IPATH += -I$(STDINC)
+CFLAGS = -Dewarm  --debug --silent --aeabi --cpu=Cortex-M4F --diag_suppress=Pa050,Go005 --endian=little -e --thumb -I$(IPATH)
+else ifeq ($(DRIVER_PLATFORM),MSP432E4)
+IPATH += -I$(SIMPLELINK_MSP432E4_SDK_INSTALL_DIR)/source
+IPATH += -I$(SIMPLELINK_MSP432E4_SDK_INSTALL_DIR)/source/ti/posix/iar/
+IPATH += -I$(STDINC)
+CFLAGS = -Dewarm  --debug --silent --aeabi --cpu=Cortex-M4F --diag_suppress=Pa050,Go005 --endian=little -e --thumb -I$(IPATH)
+else
+CFLAGS = -Dewarm  --debug --silent --aeabi --cpu=Cortex-M4 --diag_suppress=Pa050,Go005 --endian=little -e --thumb -I$(IPATH)
+endif
+
+CFILES = \
+    cc32xx_sl_net.c \
+    client_core.c \
+    mqtt_client.c \
+    mqtt_common.c \
+    client_mgmt.c \
+    mqtt_server.c \
+    server_core.c \
+    server_pkts.c \
+    server_plug.c \
+    server_util.c
+
+OBJCFILES = $(CFILES:.c=.obj)
+
+ifeq ($(DRIVER_PLATFORM),MSP432P4)
+msp432p4/mqtt_client_server.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ mkdir -p msp432p4
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) --silent -o $@ $(OBJCFILES)
+else ifeq ($(DRIVER_PLATFORM),MSP432E4)
+msp432e4/mqtt_client_server.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ mkdir -p msp432e4
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) --silent -o $@ $(OBJCFILES)
+else
+mqtt_client_server.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) --silent -o $@ $(OBJCFILES)
+endif
+
+%.obj:%.c
+	@ echo cc $@ ...
+	@ $(CC) $(CFLAGS) $< -o $@
+
+clean:
+	@ echo cleaning ...
+	@ $(RM) *.obj > $(DEVNULL) 2>&1
+	@ $(RM) *.a > $(DEVNULL) 2>&1
+	@ $(RM) -rf msp432e4 > $(DEVNULL) 2>&1
+	@ $(RM) -rf msp432p4 > $(DEVNULL) 2>&1
+

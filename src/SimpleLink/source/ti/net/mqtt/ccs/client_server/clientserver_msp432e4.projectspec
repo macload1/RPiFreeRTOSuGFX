@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+  
+    <project
+        title="CC3x20 Client Server MQTT MSP432E4"
+        name="mqtt_client_server_msp432e4"
+        toolChain="TI"
+        products="com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN;com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN"
+        device="Custom MSP432 Device"
+        outputType="staticLibrary"
+        ignoreDefaultDeviceSettings="true"
+        autoGenerateMakefiles="false"
+        buildCommand="${CCS_UTILS_DIR}/bin/gmake"
+        buildCommandFlags="-k -j 4 -C ${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/net/mqtt/ccs/client_server -f makefile.defs DRIVER_PLATFORM=MSP432E4 CGTOOLS=${CG_TOOL_ROOT}"
+        buildLocation="${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/net/mqtt/ccs/client_server">
+        <file path="../../platform/cc32xx_sl_net.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../client/client_core.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../interface/mqtt_client.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../common/mqtt_common.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../server/client_mgmt.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../interface/mqtt_server.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../server/server_core.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../server/server_pkts.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../server/server_plug.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../server/server_util.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+    </project>
+    
+</projectSpec>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+  
+    <project
+        title="SimpleLink MSP432E4 NORTOS Library"
+        name="simplelink_msp432e4_nortos"
+        toolChain="TI"
+        products="com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN;com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN"
+        device="Custom MSP432 Device"
+        outputType="staticLibrary"
+        ignoreDefaultDeviceSettings="true"
+        autoGenerateMakefiles="false"
+        buildCommand="${CCS_UTILS_DIR}/bin/gmake"
+        buildCommandFlags="-k -j 4 -C ${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/drivers/net/wifi/ccs/nortos -f makefile.defs DRIVER_PLATFORM=MSP432E4 CGTOOLS=${CG_TOOL_ROOT}"
+        buildLocation="${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/drivers/net/wifi/ccs/nortos">
+        <file path="../../source/device.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/driver.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/flowcont.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/fs.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/netapp.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/netcfg.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/netutil.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/nonos.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/sl_socket.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/spawn.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/wlan.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../porting/cc_pal.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../eventreg.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/socket.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+        <file path="../../source/netdb.c" openOnCreation="false" excludeFromBuild="false" action="link">
+        </file>
+    </project>
+    
+</projectSpec>
+

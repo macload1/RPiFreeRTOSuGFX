@@ -1,0 +1,52 @@
+SIMPLELINK_WIFI_PLUGIN_PATH ?= $(abspath ../../../../../../../../)
+
+include $(SIMPLELINK_WIFI_PLUGIN_PATH)/imports.mak
+
+ROOT=$(SIMPLELINK_WIFI_PLUGIN_PATH)/source/ti/drivers/net/wifi
+
+#
+# Source path
+#
+VPATH = VPATH = $(ROOT):$(ROOT)/source:$(ROOT)/slnetif:$(ROOT)/porting:$(ROOT)/sys:$(ROOT)/../../../net/slnet
+
+CC = "$(CCS_ARMCOMPILER)/bin/armcl"
+AR = "$(CCS_ARMCOMPILER)/bin/armar"
+
+STDINC = "$(CCS_ARMCOMPILER)/include"
+
+#
+# Include path
+#
+IPATH  = -I$(ROOT)
+IPATH += -I$(ROOT)/../../../net
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source/ti/posix/ccs
+IPATH += -I$(ROOT)/source
+IPATH += -I$(ROOT)/bsd/
+IPATH += -I$(SIMPLELINK_WIFI_PLUGIN_PATH)/source
+IPATH += -I$(SIMPLELINK_MSP432_SDK_INSTALL_DIR)/source
+IPATH += -I$(STDINC)
+CFLAGS = -c -qq -pdsw225 -ms -g --endian=little -mv7M4 --float_support=fpv4spd16 --symdebug:dwarf -I$(IPATH)
+CFLAGS += -DSL_SUPPORT_IPV6
+CFLAGS += -DDISABLE_DEBUGGER_RECONNECT
+CFLAGS += -DSL_PLATFORM_MULTI_THREADED
+
+CFILES = \
+    slnetifwifi.c
+
+OBJCFILES = $(CFILES:.c=.obj)
+
+slnetifwifi.a: $(OBJCFILES)
+	@ echo ar $@ ...
+	@ $(RM) $@ > $(DEVNULL) 2>&1
+	@ $(AR) rq $@ $(OBJCFILES)
+
+%.obj:%.c
+	@ echo cc $@ ...
+	@ $(CC) $(CFLAGS) $<
+
+clean:
+	@ echo cleaning ...
+	@ $(RM) *.obj > $(DEVNULL) 2>&1
+	@ $(RM) *.a > $(DEVNULL) 2>&1
+	@ $(RM) -rf msp432e4 > $(DEVNULL) 2>&1
+	@ $(RM) -rf msp432p4 > $(DEVNULL) 2>&1
