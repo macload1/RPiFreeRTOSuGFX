@@ -82,7 +82,7 @@
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION	0
 #define configUSE_IDLE_HOOK						0
 #define configUSE_TICK_HOOK						0
-#define configTICK_RATE_HZ						( ( portTickType ) 1000 )
+#define configTICK_RATE_HZ						( ( portTickType ) 10000 )
 #define configCPU_CLOCK_HZ						( ( unsigned long ) 24000000 )
 #define configPERIPHERAL_CLOCK_HZ				( 40000000UL )
 #define configMAX_PRIORITIES					( 5 )
@@ -140,6 +140,8 @@ priority values, 0 to 15.  This must correspond to the
 configKERNEL_INTERRUPT_PRIORITY setting.  Here 15 corresponds to the lowest
 NVIC value of 255. */
 #define configLIBRARY_KERNEL_INTERRUPT_PRIORITY	15
+
+#define PTLS_TLS_INDEX 0  /* ti.posix.freertos.PTLS */
 
 #endif /* FREERTOS_CONFIG_H */
 

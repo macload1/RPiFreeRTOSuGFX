@@ -14,49 +14,55 @@
 
 #include "gfx.h"
 
+#include "sl_common.h"
+
+#include "simplelink.h"
+
+#include "constants.h"
+
 #define BACKLIGHT_PWM_CHANNEL           0
 
 void task1() {
-    struct AMessage testMessage;
-	int i = 0;
-    char *entry;
+    //~ struct AMessage testMessage;
+	//~ int i = 0;
+    //~ char *entry;
 	while(1) {
-		i++;
-		//SetGpio(47, 1);
-        testMessage.consoleID = CONSOLE_WIFI;
-        entry = (char *) malloc(1024*1024 * sizeof(char));
-        if (!entry)
-        {
-            sprintf(testMessage.message, "Malloc failed\r\n");
-        }
-        else
-        {
-            sprintf(entry, "Hello");
-            sprintf(testMessage.message, "Ptr address: %u\r\n", (unsigned int)entry);
-        }
-        if(entry[0] == 'H')
-            xQueueSend(g_pLCDQueue, &testMessage, 0);
-        else
-        {
-            testMessage.consoleID = CONSOLE_GLOBAL;
-            xQueueSend(g_pLCDQueue, &testMessage, 0);
-        }
-        free(entry);
-		vTaskDelay(200);
+		//~ i++;
+		SetGpio(47, 1);
+        //~ testMessage.consoleID = CONSOLE_WIFI;
+        //~ entry = (char *) malloc(1024*1024 * sizeof(char));
+        //~ if (!entry)
+        //~ {
+            //~ sprintf(testMessage.message, "Malloc failed\r\n");
+        //~ }
+        //~ else
+        //~ {
+            //~ sprintf(entry, "Hello");
+            //~ sprintf(testMessage.message, "Ptr address: %u\r\n", (unsigned int)entry);
+        //~ }
+        //~ if(entry[0] == 'H')
+            //~ xQueueSend(g_pLCDQueue, &testMessage, 0);
+        //~ else
+        //~ {
+            //~ testMessage.consoleID = CONSOLE_GLOBAL;
+            //~ xQueueSend(g_pLCDQueue, &testMessage, 0);
+        //~ }
+        //~ free(entry);
+		vTaskDelay(2000/portTICK_RATE_MS);
 	}
 }
 
 void task2() {
-    struct AMessage testMessage;
-	int i = 0;
+    //~ struct AMessage testMessage;
+	//~ int i = 0;
 	while(1) {
-		i++;
-		vTaskDelay(100);
-		//SetGpio(47, 0);
-        testMessage.consoleID = CONSOLE_GLOBAL;
-        sprintf(testMessage.message, "Task 2 %d\r\n", i);
-        xQueueSend(g_pLCDQueue, &testMessage, 0);
-		vTaskDelay(100);
+		//~ i++;
+		vTaskDelay(1000/portTICK_RATE_MS);
+		SetGpio(47, 0);
+        //~ testMessage.consoleID = CONSOLE_GLOBAL;
+        //~ sprintf(testMessage.message, "Task 2 %d\r\n", i);
+        //~ xQueueSend(g_pLCDQueue, &testMessage, 0);
+		vTaskDelay(1000/portTICK_RATE_MS);
 	}
 }
 
@@ -96,7 +102,16 @@ int main(void) {
     
     // Initialise UART
     bcm2835_aux_muart_init();
-    bcm2835_aux_muart_transfernb("Hello World\r\n");
+    bcm2835_aux_muart_transfernb(UART_CMD_CLEAR_SCREEN);
+    
+    bcm2835_aux_muart_transfernb(" ################################\r");
+    bcm2835_aux_muart_transfernb(" #                              #\r");
+    bcm2835_aux_muart_transfernb(" # Raspberry Pi bare metal demo #\r");
+    bcm2835_aux_muart_transfernb(" #                              #\r");
+    bcm2835_aux_muart_transfernb(" #       - FreeRTOS v10         #\r");
+    bcm2835_aux_muart_transfernb(" #       - uGFX v2.4            #\r");
+    bcm2835_aux_muart_transfernb(" #       - Simplelink CC3100    #\r");
+    bcm2835_aux_muart_transfernb(" ################################\r\n");
     
     SetGpioFunction(47, 1);			// Act led
     SetGpioDirection(47, 1);        // Set LED as Output.
@@ -123,6 +138,9 @@ int main(void) {
     gfxInit();
     
 	vTaskStartScheduler();
+    
+    int mode = ROLE_STA;
+    mode = sl_Start(0, 0, 0);
 
 	/*
 	 *	We should never get here, but just in case something goes wrong,

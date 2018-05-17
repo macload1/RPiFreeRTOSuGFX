@@ -13,7 +13,7 @@ OBJCOPY = ${ARCH}-objcopy
 PLATFORM = raspi
 LINKER_SCRIPT = raspberrypi.ld
 
-CFLAGS = -march=armv6z -g -Wall -Wextra -D__HEAP_SIZE=1024 # -DSL_FULL
+CFLAGS = -march=armv6z -g -Wall -Wextra -D__HEAP_SIZE=1024 #-std=c99 # -DSL_FULL
 ASFLAGS = -g 
 
 CFLAGS_FOR_TARGET = #-mcpu=arm1176jzf-s
@@ -29,15 +29,11 @@ MODULES += FreeRTOS/Source/portable/MemMang
 MODULES += FreeRTOS/Source
 MODULES += Demo/Drivers
 MODULES += Demo/Graphics
+MODULES += Demo/WiFi
 MODULES += Demo/Tasks
 MODULES += Demo
-#MODULES += SimpleLink/source/ti/drivers/net/wifi
-#MODULES += SimpleLink/source/ti/drivers/net/wifi/source
-#MODULES += SimpleLink/source/ti/drivers/net/wifi/slnetif
-#MODULES += SimpleLink/source/ti/drivers/net/wifi/porting
-#MODULES += SimpleLink/source/ti/net
-#MODULES += SimpleLink/source/ti/net/bsd
-#MODULES += SimpleLink/source/ti/net/json/source
+MODULES += CC3100/simplelink/source
+MODULES += CC3100/oslib
 
 SRC_DIR := $(addprefix src/,$(MODULES))
 INC_DIR := $(addsuffix /include,$(SRC_DIR))
@@ -47,10 +43,12 @@ INCLUDEDIRS := src/FreeRTOS/Source/portable/GCC/RaspberryPi
 INCLUDEDIRS += src/FreeRTOS/Source/include
 INCLUDEDIRS += src/Demo/Drivers
 INCLUDEDIRS += src/Demo/Graphics
+INCLUDEDIRS += src/Demo/WiFi
 INCLUDEDIRS += src/Demo/Tasks
 INCLUDEDIRS += src/Demo
 INCLUDEDIRS += $(GFXINC)
-INCLUDEDIRS += src/SimpleLink/source
+INCLUDEDIRS += src/CC3100/simplelink/include
+INCLUDEDIRS += src/CC3100/oslib
 
 INCLUDES := $(addprefix -I,$(INCLUDEDIRS))
 

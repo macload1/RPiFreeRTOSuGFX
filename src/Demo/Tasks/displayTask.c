@@ -47,7 +47,7 @@ void guiThread()
     //~ width = 800; //gdispGetWidth();
     //~ height = 480; //gdispGetHeight();
     
-    bcm2835_aux_muart_transfernb("Entered Display Task\r\n");
+    bcm2835_aux_muart_transfernb("Entered Display Task\r");
     font_t	font1;
 	/* Set some fonts */
 	//font1 = gdispOpenFont("UI2");
