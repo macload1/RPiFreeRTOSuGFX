@@ -6,6 +6,7 @@
 #include <task.h>
 
 #include "Drivers/bcm2835.h"
+#include "Drivers/bcm2835_intc.h"
 #include "Drivers/interrupts.h"
 #include "Drivers/gpio.h"
 #include "Drivers/uart.h"
@@ -21,6 +22,25 @@
 #include "constants.h"
 
 #define BACKLIGHT_PWM_CHANNEL           0
+
+static int irq_fired = 0;
+/*
+ *	This is the GPIO interrupt service routine, note. no SAVE/RESTORE_CONTEXT here
+ *	as thats done in the bottom-half of the ISR.
+ */
+void vGPIOISR(int nIRQ, void *pParam )
+{
+	(void)nIRQ;
+	(void)pParam;
+	
+	if(bcm2835_gpio_eds(19) == HIGH)
+	{
+		//SetGpio(47, 0);
+		irq_fired++;
+		bcm2835_gpio_set_eds(19);
+	}
+}
+
 
 void task1() {
     //~ struct AMessage testMessage;
@@ -53,15 +73,16 @@ void task1() {
 }
 
 void task2() {
-    //~ struct AMessage testMessage;
+    struct AMessage testMessage;
 	//~ int i = 0;
 	while(1) {
 		//~ i++;
 		vTaskDelay(1000/portTICK_RATE_MS);
 		SetGpio(47, 0);
-        //~ testMessage.consoleID = CONSOLE_GLOBAL;
+        testMessage.consoleID = CONSOLE_GLOBAL;
         //~ sprintf(testMessage.message, "Task 2 %d\r\n", i);
-        //~ xQueueSend(g_pLCDQueue, &testMessage, 0);
+        sprintf(testMessage.message, "Interrupts fired: %d\r\n", irq_fired);
+        xQueueSend(g_pLCDQueue, &testMessage, 0);
 		vTaskDelay(1000/portTICK_RATE_MS);
 	}
 }
@@ -128,6 +149,15 @@ int main(void) {
     
     bcm2835_pwm_set_data(BACKLIGHT_PWM_CHANNEL, 100);       // Half brightness
     
+    
+    // BCM18 is the interrupt pin
+    bcm2835_gpio_fsel(19, BCM2835_GPIO_FSEL_INPT);
+    bcm2835_gpio_set_pud(19, BCM2835_GPIO_PUD_UP);
+    bcm2835_gpio_fen(19);
+    RegisterInterrupt(BCM2835_IRQ_ID_GPIO_0, vGPIOISR, NULL);
+	EnableInterrupt(BCM2835_IRQ_ID_GPIO_0);
+    //~ RegisterInterrupt(BCM2835_IRQ_ID_GPIO_3, vGPIOISR, NULL);
+	//~ EnableInterrupt(BCM2835_IRQ_ID_GPIO_3);
 
 	xTaskCreate(task1, "LED_0", 1280, NULL, 0, NULL);
 	xTaskCreate(task2, "LED_1", 1280, NULL, 0, NULL);
