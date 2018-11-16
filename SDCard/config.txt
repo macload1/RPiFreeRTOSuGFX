@@ -88,4 +88,9 @@ hdmi_timings=480 0 40 48 88 272 0 13 3 32 0 0 0 60 0 32000000 3
 # 0 is the normal configuration. 1 is 90 degrees. 2 is 180 degress. 3 is 270 degrees.
 display_rotate=2
 
+gpio=0-26=op,dl
+gpio=27-36=op,dl
+gpio=37=op,dh
+gpio=38-47=op,dl
+
 gpu_mem=256

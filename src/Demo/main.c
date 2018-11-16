@@ -15,10 +15,6 @@
 
 #include "gfx.h"
 
-#include "sl_common.h"
-
-#include "simplelink.h"
-
 #include "constants.h"
 
 #define BACKLIGHT_PWM_CHANNEL           0
@@ -33,11 +29,11 @@ void vGPIOISR(int nIRQ, void *pParam )
 	(void)nIRQ;
 	(void)pParam;
 	
-	if(bcm2835_gpio_eds(19) == HIGH)
+	if(bcm2835_gpio_eds(27) == HIGH)
 	{
 		//SetGpio(47, 0);
 		irq_fired++;
-		bcm2835_gpio_set_eds(19);
+		bcm2835_gpio_set_eds(27);
 	}
 }
 
@@ -131,16 +127,15 @@ int main(void) {
     bcm2835_aux_muart_transfernb(" #                              #\r");
     bcm2835_aux_muart_transfernb(" #       - FreeRTOS v10         #\r");
     bcm2835_aux_muart_transfernb(" #       - uGFX v2.4            #\r");
-    bcm2835_aux_muart_transfernb(" #       - Simplelink CC3100    #\r");
     bcm2835_aux_muart_transfernb(" ################################\r\n");
     
     SetGpioFunction(47, 1);			// Act led
     SetGpioDirection(47, 1);        // Set LED as Output.
     SetGpio(47, 1);                 // Set LED off
     
-    //~ SetGpioFunction(18, 1);			// Backlight Enable
-    //~ SetGpioDirection(18, 1);        // Set backlight enable as Output
-    //~ SetGpio(18, 1);                 // Enable backlight
+    ////SetGpioFunction(18, 1);			// Backlight Enable
+    ////SetGpioDirection(18, 1);        // Set backlight enable as Output
+    ////SetGpio(18, 1);                 // Enable backlight
     
     bcm2835_gpio_fsel(18, BCM2835_GPIO_FSEL_ALT5);          // Set PWM0 mode
     bcm2835_pwm_set_clock(BCM2835_PWM_CLOCK_DIVIDER_16);    // 1.2MHz
@@ -151,13 +146,13 @@ int main(void) {
     
     
     // BCM18 is the interrupt pin
-    bcm2835_gpio_fsel(19, BCM2835_GPIO_FSEL_INPT);
-    bcm2835_gpio_set_pud(19, BCM2835_GPIO_PUD_UP);
-    bcm2835_gpio_fen(19);
+    bcm2835_gpio_fsel(27, BCM2835_GPIO_FSEL_INPT);
+    //bcm2835_gpio_set_pud(27, BCM2835_GPIO_PUD_UP);
+    bcm2835_gpio_ren(27);
     RegisterInterrupt(BCM2835_IRQ_ID_GPIO_0, vGPIOISR, NULL);
 	EnableInterrupt(BCM2835_IRQ_ID_GPIO_0);
-    //~ RegisterInterrupt(BCM2835_IRQ_ID_GPIO_3, vGPIOISR, NULL);
-	//~ EnableInterrupt(BCM2835_IRQ_ID_GPIO_3);
+    ////RegisterInterrupt(BCM2835_IRQ_ID_GPIO_3, vGPIOISR, NULL);
+	////EnableInterrupt(BCM2835_IRQ_ID_GPIO_3);
 
 	xTaskCreate(task1, "LED_0", 1280, NULL, 0, NULL);
 	xTaskCreate(task2, "LED_1", 1280, NULL, 0, NULL);
@@ -165,19 +160,18 @@ int main(void) {
     // Create the GUI task
     xTaskCreate(guiThread, "GUI_Thread", configMINIMAL_STACK_SIZE + 1024, NULL, 3, NULL);
     
-    gfxInit();
+    //~ gfxInit();
     
 	vTaskStartScheduler();
     
-    int mode = ROLE_STA;
-    mode = sl_Start(0, 0, 0);
+    
 
 	/*
 	 *	We should never get here, but just in case something goes wrong,
 	 *	we'll place the CPU into a safe loop.
 	 */
 	while(1) {
-		SetGpio(47, 0);
+		//SetGpio(47, 0);
 	}
 	
 	return 0;

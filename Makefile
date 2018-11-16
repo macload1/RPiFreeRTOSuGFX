@@ -29,11 +29,8 @@ MODULES += FreeRTOS/Source/portable/MemMang
 MODULES += FreeRTOS/Source
 MODULES += Demo/Drivers
 MODULES += Demo/Graphics
-MODULES += Demo/WiFi
 MODULES += Demo/Tasks
 MODULES += Demo
-MODULES += CC3100/simplelink/source
-MODULES += CC3100/oslib
 
 SRC_DIR := $(addprefix src/,$(MODULES))
 INC_DIR := $(addsuffix /include,$(SRC_DIR))
@@ -43,12 +40,9 @@ INCLUDEDIRS := src/FreeRTOS/Source/portable/GCC/RaspberryPi
 INCLUDEDIRS += src/FreeRTOS/Source/include
 INCLUDEDIRS += src/Demo/Drivers
 INCLUDEDIRS += src/Demo/Graphics
-INCLUDEDIRS += src/Demo/WiFi
 INCLUDEDIRS += src/Demo/Tasks
 INCLUDEDIRS += src/Demo
 INCLUDEDIRS += $(GFXINC)
-INCLUDEDIRS += src/CC3100/simplelink/include
-INCLUDEDIRS += src/CC3100/oslib
 
 INCLUDES := $(addprefix -I,$(INCLUDEDIRS))
 

@@ -97,7 +97,10 @@ void guiThread()
         // Failed to create the queue.
         gwinPrintf(GW_global, "Failed to create the queue.\r\n");
     }
-
+    
+	//int mode = ROLE_STA;
+    //mode = sl_Start(0, 0, 0);
+    //sl_Start(0, 0, 0);
 
 	struct AMessage pxRxedMessage;
     //
