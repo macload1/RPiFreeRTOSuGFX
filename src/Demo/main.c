@@ -160,7 +160,7 @@ int main(void) {
     // Create the GUI task
     xTaskCreate(guiThread, "GUI_Thread", configMINIMAL_STACK_SIZE + 1024, NULL, 3, NULL);
     
-    //~ gfxInit();
+    gfxInit();
     
 	vTaskStartScheduler();
     

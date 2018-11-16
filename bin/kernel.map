@@ -194,7 +194,7 @@ END GROUP
                 0x000080a4                __module_entries_end = .
                 0x00000000                __module_entries_size = SIZEOF (.module_entries)
 
-.text           0x00010000    0x138b4
+.text           0x00010000    0x138b8
  *(.text)
  .text          0x00010000       0x18 src/Demo/startup.o
  .text          0x00010018      0x2ac src/FreeRTOS/Source/portable/GCC/RaspberryPi/portisr.o
@@ -414,340 +414,340 @@ END GROUP
                 0x000199a4                fb_init
  .text          0x00019a80      0x360 src/Demo/Tasks/displayTask.o
                 0x00019a80                guiThread
- .text          0x00019de0      0x424 src/Demo/main.o
+ .text          0x00019de0      0x428 src/Demo/main.o
                 0x00019de0                vGPIOISR
                 0x00019e34                task1
                 0x00019e54                task2
                 0x00019ec8                main
-                0x0001a11c                vApplicationStackOverflowHook
-                0x0001a148                vApplicationTickHook
-                0x0001a160                _sbrk
- .text          0x0001a204       0x80 src/uGFX/src/gfx.o
-                0x0001a204                gfxInit
-                0x0001a244                gfxDeinit
- .text          0x0001a284        0x0 src/uGFX/src/gos/chibios.o
- .text          0x0001a284      0x470 src/uGFX/src/gos/freertos.o
-                0x0001a284                _gosInit
-                0x0001a29c                _gosDeinit
-                0x0001a2b4                gfxRealloc
-                0x0001a338                gfxSleepMilliseconds
-                0x0001a364                gfxSleepMicroseconds
-                0x0001a3a0                MS2ST
-                0x0001a3c4                gfxMutexInit
-                0x0001a3f4                gfxSemInit
-                0x0001a468                gfxSemDestroy
-                0x0001a494                gfxSemWait
-                0x0001a514                gfxSemWaitI
-                0x0001a590                gfxSemSignal
-                0x0001a5fc                gfxSemSignalI
-                0x0001a664                gfxThreadCreate
- .text          0x0001a6f4        0x0 src/uGFX/src/gos/win32.o
- .text          0x0001a6f4        0x0 src/uGFX/src/gos/linux.o
- .text          0x0001a6f4        0x0 src/uGFX/src/gos/osx.o
- .text          0x0001a6f4        0x0 src/uGFX/src/gos/raw32.o
- .text          0x0001a6f4        0x0 src/uGFX/src/gqueue/gqueue.o
- .text          0x0001a6f4     0x2790 src/uGFX/src/gdisp/gdisp.o
-                0x0001aedc                _gdispInit
-                0x0001afd0                _gdispDeinit
-                0x0001afe8                gdispGetDisplay
-                0x0001b03c                gdispSetDisplay
-                0x0001b078                gdispGFlush
-                0x0001b098                gdispGDrawPixel
-                0x0001b0ec                gdispGDrawLine
-                0x0001b158                gdispGClear
-                0x0001b220                gdispGFillArea
-                0x0001b424                gdispGBlitArea
-                0x0001b704                gdispGSetClip
-                0x0001b864                gdispGControl
-                0x0001b980                gdispGDrawBox
-                0x0001bdbc                gdispGDrawChar
-                0x0001beb0                gdispGFillChar
-                0x0001c1bc                gdispGDrawString
-                0x0001c2bc                gdispGFillString
-                0x0001c5d0                gdispGDrawStringBox
-                0x0001c74c                gdispGFillStringBox
-                0x0001cabc                gdispGetFontMetric
-                0x0001cb80                gdispGetCharWidth
-                0x0001cbbc                gdispGetStringWidth
-                0x0001cbf4                gdispBlendColor
-                0x0001cda0                gdispContrastColor
- .text          0x0001ce84      0x2a0 src/uGFX/src/gdisp/fonts.o
-                0x0001cf90                gdispOpenFont
-                0x0001d060                gdispCloseFont
-                0x0001d0ac                gdispScaleFont
-                0x0001d0fc                gdispGetFontName
- .text          0x0001d124        0x0 src/uGFX/src/gdisp/image.o
- .text          0x0001d124        0x0 src/uGFX/src/gdisp/image_native.o
- .text          0x0001d124        0x0 src/uGFX/src/gdisp/image_gif.o
- .text          0x0001d124        0x0 src/uGFX/src/gdisp/image_bmp.o
- .text          0x0001d124        0x0 src/uGFX/src/gdisp/image_jpg.o
- .text          0x0001d124        0x0 src/uGFX/src/gdisp/image_png.o
- .text          0x0001d124       0x88 src/uGFX/src/gdisp/mcufont/mf_encoding.o
-                0x0001d124                mf_getchar
-                0x0001d178                mf_rewind
- .text          0x0001d1ac      0x260 src/uGFX/src/gdisp/mcufont/mf_font.o
-                0x0001d1ac                mf_render_character
-                0x0001d258                mf_character_width
-                0x0001d350                mf_find_font
-                0x0001d3ec                mf_get_font_list
- .text          0x0001d40c      0x794 src/uGFX/src/gdisp/mcufont/mf_justify.o
-                0x0001d5ac                mf_get_string_width
-                0x0001da10                mf_render_aligned
-                0x0001db44                mf_render_justified
- .text          0x0001dba0        0x0 src/uGFX/src/gdisp/mcufont/mf_kerning.o
- .text          0x0001dba0      0x9c0 src/uGFX/src/gdisp/mcufont/mf_rlefont.o
-                0x0001e408                mf_rlefont_render_character
-                0x0001e50c                mf_rlefont_character_width
- .text          0x0001e560      0x58c src/uGFX/src/gdisp/mcufont/mf_bwfont.o
-                0x0001e9f8                mf_bwfont_render_character
-                0x0001ea80                mf_bwfont_character_width
- .text          0x0001eaec      0x3a8 src/uGFX/src/gdisp/mcufont/mf_scaledfont.o
-                0x0001ec0c                mf_scaled_character_width
-                0x0001ec74                mf_scaled_render_character
-                0x0001ed34                mf_scale_font
- .text          0x0001ee94      0x224 src/uGFX/src/gdisp/mcufont/mf_wordwrap.o
-                0x0001ef08                mf_wordwrap
- .text          0x0001f0b8        0x0 src/uGFX/src/gevent/gevent.o
- .text          0x0001f0b8        0x0 src/uGFX/src/gtimer/gtimer.o
- .text          0x0001f0b8      0xd8c src/uGFX/src/gwin/gwin.o
-                0x0001f0b8                _gwinInit
-                0x0001f0cc                _gwinDeinit
-                0x0001f0e0                _gwindowCreate
-                0x0001f1f0                gwinClearInit
-                0x0001f250                gwinSetDefaultColor
-                0x0001f284                gwinGetDefaultColor
-                0x0001f2a8                gwinSetDefaultBgColor
-                0x0001f2dc                gwinGetDefaultBgColor
-                0x0001f300                gwinSetDefaultFont
-                0x0001f330                gwinGetDefaultFont
-                0x0001f354                gwinGWindowCreate
-                0x0001f3c8                gwinDestroy
-                0x0001f460                gwinGetClassName
-                0x0001f48c                gwinGetVisible
-                0x0001f4cc                gwinGetEnabled
-                0x0001f50c                gwinSetFont
-                0x0001f53c                gwinClear
-                0x0001f5e0                gwinDrawPixel
-                0x0001f674                gwinDrawLine
-                0x0001f750                gwinDrawBox
-                0x0001f7f8                gwinFillArea
-                0x0001f8a0                gwinBlitArea
-                0x0001f95c                gwinDrawChar
-                0x0001fa20                gwinFillChar
-                0x0001faf4                gwinDrawString
-                0x0001fbb0                gwinFillString
-                0x0001fc7c                gwinDrawStringBox
-                0x0001fd58                gwinFillStringBox
- .text          0x0001fe44        0x0 src/uGFX/src/gwin/gwidget.o
- .text          0x0001fe44      0x81c src/uGFX/src/gwin/gwm.o
-                0x0001fe44                _gwmInit
-                0x0001fe60                _gwmDeinit
-                0x0001fe84                _gwinWMAdd
-                0x0001ff1c                _gwinFlushRedraws
-                0x00020014                _gwinUpdate
-                0x00020198                _gwinDrawStart
-                0x000201dc                _gwinDrawEnd
-                0x00020200                gwinSetVisible
-                0x000202a8                gwinSetEnabled
-                0x0002033c                gwinMove
-                0x00020504                gwinResize
-                0x0002063c                gwinRedraw
- .text          0x00020660     0x142c src/uGFX/src/gwin/console.o
-                0x00020970                gwinGConsoleCreate
-                0x00020a24                gwinPutChar
-                0x0002122c                gwinPutString
-                0x0002127c                gwinPutCharArray
-                0x00021404                gwinPrintf
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/graph.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/button.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/slider.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/checkbox.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/gimage.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/label.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/radio.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/list.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/progressbar.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/gcontainer.o
- .text          0x00021a8c        0x0 src/uGFX/src/gwin/frame.o
- .text          0x00021a8c        0x0 src/uGFX/src/ginput/ginput.o
- .text          0x00021a8c        0x0 src/uGFX/src/ginput/mouse.o
- .text          0x00021a8c        0x0 src/uGFX/src/ginput/keyboard.o
- .text          0x00021a8c        0x0 src/uGFX/src/ginput/toggle.o
- .text          0x00021a8c        0x0 src/uGFX/src/ginput/dial.o
- .text          0x00021a8c        0x0 src/uGFX/src/gadc/gadc.o
- .text          0x00021a8c        0x0 src/uGFX/src/gaudio/gaudio.o
- .text          0x00021a8c        0x0 src/uGFX/src/gmisc/gmisc.o
- .text          0x00021a8c        0x0 src/uGFX/src/gmisc/arrayops.o
- .text          0x00021a8c        0x0 src/uGFX/src/gmisc/trig.o
- .text          0x00021a8c        0x0 src/uGFX/src/gfile/fatfs/fatfs.o
- .text          0x00021a8c        0x0 src/uGFX/src/gfile/fatfs/fatfs_syscall.o
- .text          0x00021a8c        0x0 src/uGFX/src/gfile/fatfs/fatfs_chibios_diskio.o
- .text          0x00021a8c        0x0 src/uGFX/src/gfile/gfile.o
- .text          0x00021a8c      0x73c src/uGFX/drivers/gdisp/framebuffer/gdisp_lld_framebuffer.o
-                0x00021ba8                gdisp_lld_init
-                0x00021c34                gdisp_lld_draw_pixel
-                0x00021dc4                gdisp_lld_get_pixel_color
-                0x00021f54                gdisp_lld_control
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memcpy-stub.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memset.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-sprintf.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-dtoa.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-impure.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-localeconv.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mallocr.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memchr-stub.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mlock.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mprec.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-sbrkr.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-strlen-stub.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfiprintf.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-callocr.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-freer.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-locale.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mbtowc_r.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memmove.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-reallocr.o)
- .text          0x000221c8        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-reent.o)
- .text          0x000221c8      0x224 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-strcmp.o)
-                0x000221c8                strcmp
- .text          0x000223ec        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-wctomb_r.o)
- .text          0x000223ec        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-ctype_.o)
- .text          0x000223ec      0x114 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_udivsi3.o)
-                0x000223ec                __udivsi3
-                0x000223ec                __aeabi_uidiv
-                0x000224e0                __aeabi_uidivmod
- .text          0x00022500      0x148 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_divsi3.o)
-                0x00022500                __aeabi_idiv
-                0x00022500                __divsi3
-                0x00022628                __aeabi_idivmod
- .text          0x00022648        0x4 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_dvmd_tls.o)
-                0x00022648                __aeabi_ldiv0
-                0x00022648                __aeabi_idiv0
- .text          0x0002264c      0x41c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_addsubdf3.o)
-                0x0002264c                __aeabi_drsub
-                0x00022654                __aeabi_dsub
-                0x00022654                __subdf3
-                0x00022658                __adddf3
-                0x00022658                __aeabi_dadd
-                0x00022968                __aeabi_ui2d
-                0x00022968                __floatunsidf
-                0x0002298c                __floatsidf
-                0x0002298c                __aeabi_i2d
-                0x000229b4                __extendsfdf2
-                0x000229b4                __aeabi_f2d
-                0x000229f4                __aeabi_ul2d
-                0x000229f4                __floatundidf
-                0x00022a08                __floatdidf
-                0x00022a08                __aeabi_l2d
- .text          0x00022a68      0x49c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_muldivdf3.o)
-                0x00022a68                __aeabi_dmul
-                0x00022a68                __muldf3
-                0x00022cf8                __aeabi_ddiv
-                0x00022cf8                __divdf3
- .text          0x00022f04      0x144 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_cmpdf2.o)
-                0x00022f04                __gtdf2
-                0x00022f04                __gedf2
-                0x00022f0c                __ltdf2
-                0x00022f0c                __ledf2
-                0x00022f14                __cmpdf2
-                0x00022f14                __eqdf2
-                0x00022f14                __nedf2
-                0x00022f9c                __aeabi_cdrcmple
-                0x00022fb8                __aeabi_cdcmple
-                0x00022fb8                __aeabi_cdcmpeq
-                0x00022fd0                __aeabi_dcmpeq
-                0x00022fe8                __aeabi_dcmplt
-                0x00023000                __aeabi_dcmple
-                0x00023018                __aeabi_dcmpge
-                0x00023030                __aeabi_dcmpgt
- .text          0x00023048       0x38 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_unorddf2.o)
-                0x00023048                __aeabi_dcmpun
-                0x00023048                __unorddf2
- .text          0x00023080       0x5c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_fixdfsi.o)
-                0x00023080                __fixdfsi
-                0x00023080                __aeabi_d2iz
- .text          0x000230dc      0x2ac /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_addsubsf3.o)
-                0x000230dc                __aeabi_frsub
-                0x000230e4                __subsf3
-                0x000230e4                __aeabi_fsub
-                0x000230e8                __aeabi_fadd
-                0x000230e8                __addsf3
-                0x000232a4                __aeabi_ui2f
-                0x000232a4                __floatunsisf
-                0x000232ac                __aeabi_i2f
-                0x000232ac                __floatsisf
-                0x000232cc                __floatundisf
-                0x000232cc                __aeabi_ul2f
-                0x000232dc                __floatdisf
-                0x000232dc                __aeabi_l2f
- .text          0x00023388      0x2f8 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_muldivsf3.o)
-                0x00023388                __mulsf3
-                0x00023388                __aeabi_fmul
-                0x00023520                __divsf3
-                0x00023520                __aeabi_fdiv
- .text          0x00023680       0x5c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_fixsfsi.o)
-                0x00023680                __fixsfsi
-                0x00023680                __aeabi_f2iz
- .text          0x000236dc       0x3c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_aeabi_uldivmod.o)
-                0x000236dc                __aeabi_uldivmod
- .text          0x00023718      0x12c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_udivmoddi4.o)
-                0x00023718                __udivmoddi4
- .text          0x00023844       0x28 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_clzdi2.o)
-                0x00023844                __clzdi2
- .text          0x0002386c       0x48 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_clzsi2.o)
-                0x0002386c                __clzsi2
+                0x0001a120                vApplicationStackOverflowHook
+                0x0001a14c                vApplicationTickHook
+                0x0001a164                _sbrk
+ .text          0x0001a208       0x80 src/uGFX/src/gfx.o
+                0x0001a208                gfxInit
+                0x0001a248                gfxDeinit
+ .text          0x0001a288        0x0 src/uGFX/src/gos/chibios.o
+ .text          0x0001a288      0x470 src/uGFX/src/gos/freertos.o
+                0x0001a288                _gosInit
+                0x0001a2a0                _gosDeinit
+                0x0001a2b8                gfxRealloc
+                0x0001a33c                gfxSleepMilliseconds
+                0x0001a368                gfxSleepMicroseconds
+                0x0001a3a4                MS2ST
+                0x0001a3c8                gfxMutexInit
+                0x0001a3f8                gfxSemInit
+                0x0001a46c                gfxSemDestroy
+                0x0001a498                gfxSemWait
+                0x0001a518                gfxSemWaitI
+                0x0001a594                gfxSemSignal
+                0x0001a600                gfxSemSignalI
+                0x0001a668                gfxThreadCreate
+ .text          0x0001a6f8        0x0 src/uGFX/src/gos/win32.o
+ .text          0x0001a6f8        0x0 src/uGFX/src/gos/linux.o
+ .text          0x0001a6f8        0x0 src/uGFX/src/gos/osx.o
+ .text          0x0001a6f8        0x0 src/uGFX/src/gos/raw32.o
+ .text          0x0001a6f8        0x0 src/uGFX/src/gqueue/gqueue.o
+ .text          0x0001a6f8     0x2790 src/uGFX/src/gdisp/gdisp.o
+                0x0001aee0                _gdispInit
+                0x0001afd4                _gdispDeinit
+                0x0001afec                gdispGetDisplay
+                0x0001b040                gdispSetDisplay
+                0x0001b07c                gdispGFlush
+                0x0001b09c                gdispGDrawPixel
+                0x0001b0f0                gdispGDrawLine
+                0x0001b15c                gdispGClear
+                0x0001b224                gdispGFillArea
+                0x0001b428                gdispGBlitArea
+                0x0001b708                gdispGSetClip
+                0x0001b868                gdispGControl
+                0x0001b984                gdispGDrawBox
+                0x0001bdc0                gdispGDrawChar
+                0x0001beb4                gdispGFillChar
+                0x0001c1c0                gdispGDrawString
+                0x0001c2c0                gdispGFillString
+                0x0001c5d4                gdispGDrawStringBox
+                0x0001c750                gdispGFillStringBox
+                0x0001cac0                gdispGetFontMetric
+                0x0001cb84                gdispGetCharWidth
+                0x0001cbc0                gdispGetStringWidth
+                0x0001cbf8                gdispBlendColor
+                0x0001cda4                gdispContrastColor
+ .text          0x0001ce88      0x2a0 src/uGFX/src/gdisp/fonts.o
+                0x0001cf94                gdispOpenFont
+                0x0001d064                gdispCloseFont
+                0x0001d0b0                gdispScaleFont
+                0x0001d100                gdispGetFontName
+ .text          0x0001d128        0x0 src/uGFX/src/gdisp/image.o
+ .text          0x0001d128        0x0 src/uGFX/src/gdisp/image_native.o
+ .text          0x0001d128        0x0 src/uGFX/src/gdisp/image_gif.o
+ .text          0x0001d128        0x0 src/uGFX/src/gdisp/image_bmp.o
+ .text          0x0001d128        0x0 src/uGFX/src/gdisp/image_jpg.o
+ .text          0x0001d128        0x0 src/uGFX/src/gdisp/image_png.o
+ .text          0x0001d128       0x88 src/uGFX/src/gdisp/mcufont/mf_encoding.o
+                0x0001d128                mf_getchar
+                0x0001d17c                mf_rewind
+ .text          0x0001d1b0      0x260 src/uGFX/src/gdisp/mcufont/mf_font.o
+                0x0001d1b0                mf_render_character
+                0x0001d25c                mf_character_width
+                0x0001d354                mf_find_font
+                0x0001d3f0                mf_get_font_list
+ .text          0x0001d410      0x794 src/uGFX/src/gdisp/mcufont/mf_justify.o
+                0x0001d5b0                mf_get_string_width
+                0x0001da14                mf_render_aligned
+                0x0001db48                mf_render_justified
+ .text          0x0001dba4        0x0 src/uGFX/src/gdisp/mcufont/mf_kerning.o
+ .text          0x0001dba4      0x9c0 src/uGFX/src/gdisp/mcufont/mf_rlefont.o
+                0x0001e40c                mf_rlefont_render_character
+                0x0001e510                mf_rlefont_character_width
+ .text          0x0001e564      0x58c src/uGFX/src/gdisp/mcufont/mf_bwfont.o
+                0x0001e9fc                mf_bwfont_render_character
+                0x0001ea84                mf_bwfont_character_width
+ .text          0x0001eaf0      0x3a8 src/uGFX/src/gdisp/mcufont/mf_scaledfont.o
+                0x0001ec10                mf_scaled_character_width
+                0x0001ec78                mf_scaled_render_character
+                0x0001ed38                mf_scale_font
+ .text          0x0001ee98      0x224 src/uGFX/src/gdisp/mcufont/mf_wordwrap.o
+                0x0001ef0c                mf_wordwrap
+ .text          0x0001f0bc        0x0 src/uGFX/src/gevent/gevent.o
+ .text          0x0001f0bc        0x0 src/uGFX/src/gtimer/gtimer.o
+ .text          0x0001f0bc      0xd8c src/uGFX/src/gwin/gwin.o
+                0x0001f0bc                _gwinInit
+                0x0001f0d0                _gwinDeinit
+                0x0001f0e4                _gwindowCreate
+                0x0001f1f4                gwinClearInit
+                0x0001f254                gwinSetDefaultColor
+                0x0001f288                gwinGetDefaultColor
+                0x0001f2ac                gwinSetDefaultBgColor
+                0x0001f2e0                gwinGetDefaultBgColor
+                0x0001f304                gwinSetDefaultFont
+                0x0001f334                gwinGetDefaultFont
+                0x0001f358                gwinGWindowCreate
+                0x0001f3cc                gwinDestroy
+                0x0001f464                gwinGetClassName
+                0x0001f490                gwinGetVisible
+                0x0001f4d0                gwinGetEnabled
+                0x0001f510                gwinSetFont
+                0x0001f540                gwinClear
+                0x0001f5e4                gwinDrawPixel
+                0x0001f678                gwinDrawLine
+                0x0001f754                gwinDrawBox
+                0x0001f7fc                gwinFillArea
+                0x0001f8a4                gwinBlitArea
+                0x0001f960                gwinDrawChar
+                0x0001fa24                gwinFillChar
+                0x0001faf8                gwinDrawString
+                0x0001fbb4                gwinFillString
+                0x0001fc80                gwinDrawStringBox
+                0x0001fd5c                gwinFillStringBox
+ .text          0x0001fe48        0x0 src/uGFX/src/gwin/gwidget.o
+ .text          0x0001fe48      0x81c src/uGFX/src/gwin/gwm.o
+                0x0001fe48                _gwmInit
+                0x0001fe64                _gwmDeinit
+                0x0001fe88                _gwinWMAdd
+                0x0001ff20                _gwinFlushRedraws
+                0x00020018                _gwinUpdate
+                0x0002019c                _gwinDrawStart
+                0x000201e0                _gwinDrawEnd
+                0x00020204                gwinSetVisible
+                0x000202ac                gwinSetEnabled
+                0x00020340                gwinMove
+                0x00020508                gwinResize
+                0x00020640                gwinRedraw
+ .text          0x00020664     0x142c src/uGFX/src/gwin/console.o
+                0x00020974                gwinGConsoleCreate
+                0x00020a28                gwinPutChar
+                0x00021230                gwinPutString
+                0x00021280                gwinPutCharArray
+                0x00021408                gwinPrintf
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/graph.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/button.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/slider.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/checkbox.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/gimage.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/label.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/radio.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/list.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/progressbar.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/gcontainer.o
+ .text          0x00021a90        0x0 src/uGFX/src/gwin/frame.o
+ .text          0x00021a90        0x0 src/uGFX/src/ginput/ginput.o
+ .text          0x00021a90        0x0 src/uGFX/src/ginput/mouse.o
+ .text          0x00021a90        0x0 src/uGFX/src/ginput/keyboard.o
+ .text          0x00021a90        0x0 src/uGFX/src/ginput/toggle.o
+ .text          0x00021a90        0x0 src/uGFX/src/ginput/dial.o
+ .text          0x00021a90        0x0 src/uGFX/src/gadc/gadc.o
+ .text          0x00021a90        0x0 src/uGFX/src/gaudio/gaudio.o
+ .text          0x00021a90        0x0 src/uGFX/src/gmisc/gmisc.o
+ .text          0x00021a90        0x0 src/uGFX/src/gmisc/arrayops.o
+ .text          0x00021a90        0x0 src/uGFX/src/gmisc/trig.o
+ .text          0x00021a90        0x0 src/uGFX/src/gfile/fatfs/fatfs.o
+ .text          0x00021a90        0x0 src/uGFX/src/gfile/fatfs/fatfs_syscall.o
+ .text          0x00021a90        0x0 src/uGFX/src/gfile/fatfs/fatfs_chibios_diskio.o
+ .text          0x00021a90        0x0 src/uGFX/src/gfile/gfile.o
+ .text          0x00021a90      0x73c src/uGFX/drivers/gdisp/framebuffer/gdisp_lld_framebuffer.o
+                0x00021bac                gdisp_lld_init
+                0x00021c38                gdisp_lld_draw_pixel
+                0x00021dc8                gdisp_lld_get_pixel_color
+                0x00021f58                gdisp_lld_control
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memcpy-stub.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memset.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-sprintf.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-dtoa.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-impure.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-localeconv.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mallocr.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memchr-stub.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mlock.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mprec.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-sbrkr.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-strlen-stub.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfiprintf.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-callocr.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-freer.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-locale.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-mbtowc_r.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-memmove.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-reallocr.o)
+ .text          0x000221cc        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-reent.o)
+ .text          0x000221cc      0x224 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-strcmp.o)
+                0x000221cc                strcmp
+ .text          0x000223f0        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-wctomb_r.o)
+ .text          0x000223f0        0x0 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-ctype_.o)
+ .text          0x000223f0      0x114 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_udivsi3.o)
+                0x000223f0                __udivsi3
+                0x000223f0                __aeabi_uidiv
+                0x000224e4                __aeabi_uidivmod
+ .text          0x00022504      0x148 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_divsi3.o)
+                0x00022504                __aeabi_idiv
+                0x00022504                __divsi3
+                0x0002262c                __aeabi_idivmod
+ .text          0x0002264c        0x4 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_dvmd_tls.o)
+                0x0002264c                __aeabi_ldiv0
+                0x0002264c                __aeabi_idiv0
+ .text          0x00022650      0x41c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_addsubdf3.o)
+                0x00022650                __aeabi_drsub
+                0x00022658                __aeabi_dsub
+                0x00022658                __subdf3
+                0x0002265c                __adddf3
+                0x0002265c                __aeabi_dadd
+                0x0002296c                __aeabi_ui2d
+                0x0002296c                __floatunsidf
+                0x00022990                __floatsidf
+                0x00022990                __aeabi_i2d
+                0x000229b8                __extendsfdf2
+                0x000229b8                __aeabi_f2d
+                0x000229f8                __aeabi_ul2d
+                0x000229f8                __floatundidf
+                0x00022a0c                __floatdidf
+                0x00022a0c                __aeabi_l2d
+ .text          0x00022a6c      0x49c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_muldivdf3.o)
+                0x00022a6c                __aeabi_dmul
+                0x00022a6c                __muldf3
+                0x00022cfc                __aeabi_ddiv
+                0x00022cfc                __divdf3
+ .text          0x00022f08      0x144 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_cmpdf2.o)
+                0x00022f08                __gtdf2
+                0x00022f08                __gedf2
+                0x00022f10                __ltdf2
+                0x00022f10                __ledf2
+                0x00022f18                __cmpdf2
+                0x00022f18                __eqdf2
+                0x00022f18                __nedf2
+                0x00022fa0                __aeabi_cdrcmple
+                0x00022fbc                __aeabi_cdcmple
+                0x00022fbc                __aeabi_cdcmpeq
+                0x00022fd4                __aeabi_dcmpeq
+                0x00022fec                __aeabi_dcmplt
+                0x00023004                __aeabi_dcmple
+                0x0002301c                __aeabi_dcmpge
+                0x00023034                __aeabi_dcmpgt
+ .text          0x0002304c       0x38 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_unorddf2.o)
+                0x0002304c                __aeabi_dcmpun
+                0x0002304c                __unorddf2
+ .text          0x00023084       0x5c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_fixdfsi.o)
+                0x00023084                __fixdfsi
+                0x00023084                __aeabi_d2iz
+ .text          0x000230e0      0x2ac /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_addsubsf3.o)
+                0x000230e0                __aeabi_frsub
+                0x000230e8                __subsf3
+                0x000230e8                __aeabi_fsub
+                0x000230ec                __aeabi_fadd
+                0x000230ec                __addsf3
+                0x000232a8                __aeabi_ui2f
+                0x000232a8                __floatunsisf
+                0x000232b0                __aeabi_i2f
+                0x000232b0                __floatsisf
+                0x000232d0                __floatundisf
+                0x000232d0                __aeabi_ul2f
+                0x000232e0                __floatdisf
+                0x000232e0                __aeabi_l2f
+ .text          0x0002338c      0x2f8 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_muldivsf3.o)
+                0x0002338c                __mulsf3
+                0x0002338c                __aeabi_fmul
+                0x00023524                __divsf3
+                0x00023524                __aeabi_fdiv
+ .text          0x00023684       0x5c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_arm_fixsfsi.o)
+                0x00023684                __fixsfsi
+                0x00023684                __aeabi_f2iz
+ .text          0x000236e0       0x3c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_aeabi_uldivmod.o)
+                0x000236e0                __aeabi_uldivmod
+ .text          0x0002371c      0x12c /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_udivmoddi4.o)
+                0x0002371c                __udivmoddi4
+ .text          0x00023848       0x28 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_clzdi2.o)
+                0x00023848                __clzdi2
+ .text          0x00023870       0x48 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/bin/../lib/gcc/arm-none-eabi/5.4.1/libgcc.a(_clzsi2.o)
+                0x00023870                __clzsi2
 
-.rodata         0x000238b4      0xeb7
- .rodata        0x000238b4        0x4 src/FreeRTOS/Source/portable/GCC/RaspberryPi/port.o
- .rodata        0x000238b8        0x8 src/FreeRTOS/Source/portable/MemMang/heap_4.o
- .rodata        0x000238c0        0x5 src/FreeRTOS/Source/tasks.o
- *fill*         0x000238c5        0x3 
- .rodata        0x000238c8        0x4 src/Demo/Drivers/interrupts.o
- .rodata        0x000238cc        0x4 src/Demo/Drivers/gpio.o
-                0x000238cc                pRegs
- .rodata        0x000238d0       0x8a src/Demo/Tasks/displayTask.o
- *fill*         0x0002395a        0x2 
- .rodata        0x0002395c      0x113 src/Demo/main.o
- *fill*         0x00023a6f        0x1 
- .rodata        0x00023a70        0xa src/uGFX/src/gos/freertos.o
- *fill*         0x00023a7a        0x2 
- .rodata        0x00023a7c      0xcb0 src/uGFX/src/gdisp/mcufont/mf_font.o
-                0x00024134                mf_bwfont_DejaVuSans12
-                0x00024684                mf_rlefont_UI2
-                0x000246c0                mf_rlefont_UI2_Narrow
-                0x000246f0                mf_rlefont_UI2_Double
- .rodata        0x0002472c       0x1c src/uGFX/src/gwin/gwin.o
- .rodata        0x00024748       0x23 src/uGFX/src/gwin/console.o
+.rodata         0x000238b8      0xeb7
+ .rodata        0x000238b8        0x4 src/FreeRTOS/Source/portable/GCC/RaspberryPi/port.o
+ .rodata        0x000238bc        0x8 src/FreeRTOS/Source/portable/MemMang/heap_4.o
+ .rodata        0x000238c4        0x5 src/FreeRTOS/Source/tasks.o
+ *fill*         0x000238c9        0x3 
+ .rodata        0x000238cc        0x4 src/Demo/Drivers/interrupts.o
+ .rodata        0x000238d0        0x4 src/Demo/Drivers/gpio.o
+                0x000238d0                pRegs
+ .rodata        0x000238d4       0x8a src/Demo/Tasks/displayTask.o
+ *fill*         0x0002395e        0x2 
+ .rodata        0x00023960      0x113 src/Demo/main.o
+ *fill*         0x00023a73        0x1 
+ .rodata        0x00023a74        0xa src/uGFX/src/gos/freertos.o
+ *fill*         0x00023a7e        0x2 
+ .rodata        0x00023a80      0xcb0 src/uGFX/src/gdisp/mcufont/mf_font.o
+                0x00024138                mf_bwfont_DejaVuSans12
+                0x00024688                mf_rlefont_UI2
+                0x000246c4                mf_rlefont_UI2_Narrow
+                0x000246f4                mf_rlefont_UI2_Double
+ .rodata        0x00024730       0x1c src/uGFX/src/gwin/gwin.o
+ .rodata        0x0002474c       0x23 src/uGFX/src/gwin/console.o
 
 .rodata.zeroes.7256
-                0x0002476c       0x10
+                0x00024770       0x10
  .rodata.zeroes.7256
-                0x0002476c       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
+                0x00024770       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
 
-.rodata.str1.4  0x0002477c       0x64
+.rodata.str1.4  0x00024780       0x64
  .rodata.str1.4
-                0x0002477c       0x42 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
- *fill*         0x000247be        0x2 
+                0x00024780       0x42 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
+ *fill*         0x000247c2        0x2 
  .rodata.str1.4
-                0x000247c0       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-dtoa.o)
+                0x000247c4       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-dtoa.o)
                                  0x12 (size before relaxing)
  .rodata.str1.4
-                0x000247d0       0x2f /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfiprintf.o)
+                0x000247d4       0x2f /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfiprintf.o)
  .rodata.str1.4
-                0x000247d0       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-locale.o)
+                0x000247d4       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-locale.o)
                                  0x12 (size before relaxing)
 
 .rodata.blanks.7255
-                0x000247e0       0x10
+                0x000247e4       0x10
  .rodata.blanks.7255
-                0x000247e0       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
+                0x000247e4       0x10 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-svfprintf.o)
 
 .rodata._global_impure_ptr
-                0x000247f0        0x4
+                0x000247f4        0x4
  .rodata._global_impure_ptr
-                0x000247f0        0x4 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-impure.o)
-                0x000247f0                _global_impure_ptr
+                0x000247f4        0x4 /home/macload1/RPi/BareMetal/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/libc.a(lib_a-impure.o)
+                0x000247f4                _global_impure_ptr
 
 .rodata.__mprec_tens
                 0x000247f8       0xc8
@@ -1725,7 +1725,7 @@ OUTPUT(bin/kernel.elf elf32-littlearm)
  .comment       0x0000006e       0x6f src/uGFX/src/gfile/gfile.o
  .comment       0x0000006e       0x6f src/uGFX/drivers/gdisp/framebuffer/gdisp_lld_framebuffer.o
 
-.debug_line     0x00000000     0x4c62
+.debug_line     0x00000000     0x4c63
  .debug_line    0x00000000       0x7c src/Demo/startup.o
  .debug_line    0x0000007c       0x94 src/FreeRTOS/Source/portable/GCC/RaspberryPi/portisr.o
  .debug_line    0x00000110       0xd4 src/FreeRTOS/Source/portable/GCC/RaspberryPi/port.o
@@ -1744,63 +1744,63 @@ OUTPUT(bin/kernel.elf elf32-littlearm)
  .debug_line    0x00001e82       0x6d src/Demo/Graphics/mailbox.o
  .debug_line    0x00001eef       0x72 src/Demo/Graphics/framebuffer.o
  .debug_line    0x00001f61      0x226 src/Demo/Tasks/displayTask.o
- .debug_line    0x00002187      0x240 src/Demo/main.o
- .debug_line    0x000023c7      0x14b src/uGFX/src/gfx.o
- .debug_line    0x00002512       0x1d src/uGFX/src/gos/chibios.o
- .debug_line    0x0000252f      0x260 src/uGFX/src/gos/freertos.o
- .debug_line    0x0000278f       0x1d src/uGFX/src/gos/win32.o
- .debug_line    0x000027ac       0x1d src/uGFX/src/gos/linux.o
- .debug_line    0x000027c9       0x1d src/uGFX/src/gos/osx.o
- .debug_line    0x000027e6       0x1d src/uGFX/src/gos/raw32.o
- .debug_line    0x00002803       0x1d src/uGFX/src/gqueue/gqueue.o
- .debug_line    0x00002820      0x63d src/uGFX/src/gdisp/gdisp.o
- .debug_line    0x00002e5d      0x1d6 src/uGFX/src/gdisp/fonts.o
- .debug_line    0x00003033       0x1d src/uGFX/src/gdisp/image.o
- .debug_line    0x00003050       0x1d src/uGFX/src/gdisp/image_native.o
- .debug_line    0x0000306d       0x1d src/uGFX/src/gdisp/image_gif.o
- .debug_line    0x0000308a       0x1d src/uGFX/src/gdisp/image_bmp.o
- .debug_line    0x000030a7       0x1d src/uGFX/src/gdisp/image_jpg.o
- .debug_line    0x000030c4       0x1d src/uGFX/src/gdisp/image_png.o
- .debug_line    0x000030e1       0x71 src/uGFX/src/gdisp/mcufont/mf_encoding.o
- .debug_line    0x00003152      0x1d6 src/uGFX/src/gdisp/mcufont/mf_font.o
- .debug_line    0x00003328      0x215 src/uGFX/src/gdisp/mcufont/mf_justify.o
- .debug_line    0x0000353d       0x1d src/uGFX/src/gdisp/mcufont/mf_kerning.o
- .debug_line    0x0000355a      0x231 src/uGFX/src/gdisp/mcufont/mf_rlefont.o
- .debug_line    0x0000378b      0x1e8 src/uGFX/src/gdisp/mcufont/mf_bwfont.o
- .debug_line    0x00003973      0x195 src/uGFX/src/gdisp/mcufont/mf_scaledfont.o
- .debug_line    0x00003b08      0x1ae src/uGFX/src/gdisp/mcufont/mf_wordwrap.o
- .debug_line    0x00003cb6       0x1d src/uGFX/src/gevent/gevent.o
- .debug_line    0x00003cd3       0x1d src/uGFX/src/gtimer/gtimer.o
- .debug_line    0x00003cf0      0x2fa src/uGFX/src/gwin/gwin.o
- .debug_line    0x00003fea       0x1d src/uGFX/src/gwin/gwidget.o
- .debug_line    0x00004007      0x30e src/uGFX/src/gwin/gwm.o
- .debug_line    0x00004315      0x40c src/uGFX/src/gwin/console.o
- .debug_line    0x00004721       0x1d src/uGFX/src/gwin/graph.o
- .debug_line    0x0000473e       0x1d src/uGFX/src/gwin/button.o
- .debug_line    0x0000475b       0x1d src/uGFX/src/gwin/slider.o
- .debug_line    0x00004778       0x1d src/uGFX/src/gwin/checkbox.o
- .debug_line    0x00004795       0x1d src/uGFX/src/gwin/gimage.o
- .debug_line    0x000047b2       0x1d src/uGFX/src/gwin/label.o
- .debug_line    0x000047cf       0x1d src/uGFX/src/gwin/radio.o
- .debug_line    0x000047ec       0x1d src/uGFX/src/gwin/list.o
- .debug_line    0x00004809       0x1d src/uGFX/src/gwin/progressbar.o
- .debug_line    0x00004826       0x1d src/uGFX/src/gwin/gcontainer.o
- .debug_line    0x00004843       0x1d src/uGFX/src/gwin/frame.o
- .debug_line    0x00004860       0x1d src/uGFX/src/ginput/ginput.o
- .debug_line    0x0000487d       0x1d src/uGFX/src/ginput/mouse.o
- .debug_line    0x0000489a       0x1d src/uGFX/src/ginput/keyboard.o
- .debug_line    0x000048b7       0x1d src/uGFX/src/ginput/toggle.o
- .debug_line    0x000048d4       0x1d src/uGFX/src/ginput/dial.o
- .debug_line    0x000048f1       0x1d src/uGFX/src/gadc/gadc.o
- .debug_line    0x0000490e       0x1d src/uGFX/src/gaudio/gaudio.o
- .debug_line    0x0000492b       0x1d src/uGFX/src/gmisc/gmisc.o
- .debug_line    0x00004948       0x1d src/uGFX/src/gmisc/arrayops.o
- .debug_line    0x00004965       0x1d src/uGFX/src/gmisc/trig.o
- .debug_line    0x00004982       0x1d src/uGFX/src/gfile/fatfs/fatfs.o
- .debug_line    0x0000499f       0x1d src/uGFX/src/gfile/fatfs/fatfs_syscall.o
- .debug_line    0x000049bc       0x1d src/uGFX/src/gfile/fatfs/fatfs_chibios_diskio.o
- .debug_line    0x000049d9       0x1d src/uGFX/src/gfile/gfile.o
- .debug_line    0x000049f6      0x26c src/uGFX/drivers/gdisp/framebuffer/gdisp_lld_framebuffer.o
+ .debug_line    0x00002187      0x241 src/Demo/main.o
+ .debug_line    0x000023c8      0x14b src/uGFX/src/gfx.o
+ .debug_line    0x00002513       0x1d src/uGFX/src/gos/chibios.o
+ .debug_line    0x00002530      0x260 src/uGFX/src/gos/freertos.o
+ .debug_line    0x00002790       0x1d src/uGFX/src/gos/win32.o
+ .debug_line    0x000027ad       0x1d src/uGFX/src/gos/linux.o
+ .debug_line    0x000027ca       0x1d src/uGFX/src/gos/osx.o
+ .debug_line    0x000027e7       0x1d src/uGFX/src/gos/raw32.o
+ .debug_line    0x00002804       0x1d src/uGFX/src/gqueue/gqueue.o
+ .debug_line    0x00002821      0x63d src/uGFX/src/gdisp/gdisp.o
+ .debug_line    0x00002e5e      0x1d6 src/uGFX/src/gdisp/fonts.o
+ .debug_line    0x00003034       0x1d src/uGFX/src/gdisp/image.o
+ .debug_line    0x00003051       0x1d src/uGFX/src/gdisp/image_native.o
+ .debug_line    0x0000306e       0x1d src/uGFX/src/gdisp/image_gif.o
+ .debug_line    0x0000308b       0x1d src/uGFX/src/gdisp/image_bmp.o
+ .debug_line    0x000030a8       0x1d src/uGFX/src/gdisp/image_jpg.o
+ .debug_line    0x000030c5       0x1d src/uGFX/src/gdisp/image_png.o
+ .debug_line    0x000030e2       0x71 src/uGFX/src/gdisp/mcufont/mf_encoding.o
+ .debug_line    0x00003153      0x1d6 src/uGFX/src/gdisp/mcufont/mf_font.o
+ .debug_line    0x00003329      0x215 src/uGFX/src/gdisp/mcufont/mf_justify.o
+ .debug_line    0x0000353e       0x1d src/uGFX/src/gdisp/mcufont/mf_kerning.o
+ .debug_line    0x0000355b      0x231 src/uGFX/src/gdisp/mcufont/mf_rlefont.o
+ .debug_line    0x0000378c      0x1e8 src/uGFX/src/gdisp/mcufont/mf_bwfont.o
+ .debug_line    0x00003974      0x195 src/uGFX/src/gdisp/mcufont/mf_scaledfont.o
+ .debug_line    0x00003b09      0x1ae src/uGFX/src/gdisp/mcufont/mf_wordwrap.o
+ .debug_line    0x00003cb7       0x1d src/uGFX/src/gevent/gevent.o
+ .debug_line    0x00003cd4       0x1d src/uGFX/src/gtimer/gtimer.o
+ .debug_line    0x00003cf1      0x2fa src/uGFX/src/gwin/gwin.o
+ .debug_line    0x00003feb       0x1d src/uGFX/src/gwin/gwidget.o
+ .debug_line    0x00004008      0x30e src/uGFX/src/gwin/gwm.o
+ .debug_line    0x00004316      0x40c src/uGFX/src/gwin/console.o
+ .debug_line    0x00004722       0x1d src/uGFX/src/gwin/graph.o
+ .debug_line    0x0000473f       0x1d src/uGFX/src/gwin/button.o
+ .debug_line    0x0000475c       0x1d src/uGFX/src/gwin/slider.o
+ .debug_line    0x00004779       0x1d src/uGFX/src/gwin/checkbox.o
+ .debug_line    0x00004796       0x1d src/uGFX/src/gwin/gimage.o
+ .debug_line    0x000047b3       0x1d src/uGFX/src/gwin/label.o
+ .debug_line    0x000047d0       0x1d src/uGFX/src/gwin/radio.o
+ .debug_line    0x000047ed       0x1d src/uGFX/src/gwin/list.o
+ .debug_line    0x0000480a       0x1d src/uGFX/src/gwin/progressbar.o
+ .debug_line    0x00004827       0x1d src/uGFX/src/gwin/gcontainer.o
+ .debug_line    0x00004844       0x1d src/uGFX/src/gwin/frame.o
+ .debug_line    0x00004861       0x1d src/uGFX/src/ginput/ginput.o
+ .debug_line    0x0000487e       0x1d src/uGFX/src/ginput/mouse.o
+ .debug_line    0x0000489b       0x1d src/uGFX/src/ginput/keyboard.o
+ .debug_line    0x000048b8       0x1d src/uGFX/src/ginput/toggle.o
+ .debug_line    0x000048d5       0x1d src/uGFX/src/ginput/dial.o
+ .debug_line    0x000048f2       0x1d src/uGFX/src/gadc/gadc.o
+ .debug_line    0x0000490f       0x1d src/uGFX/src/gaudio/gaudio.o
+ .debug_line    0x0000492c       0x1d src/uGFX/src/gmisc/gmisc.o
+ .debug_line    0x00004949       0x1d src/uGFX/src/gmisc/arrayops.o
+ .debug_line    0x00004966       0x1d src/uGFX/src/gmisc/trig.o
+ .debug_line    0x00004983       0x1d src/uGFX/src/gfile/fatfs/fatfs.o
+ .debug_line    0x000049a0       0x1d src/uGFX/src/gfile/fatfs/fatfs_syscall.o
+ .debug_line    0x000049bd       0x1d src/uGFX/src/gfile/fatfs/fatfs_chibios_diskio.o
+ .debug_line    0x000049da       0x1d src/uGFX/src/gfile/gfile.o
+ .debug_line    0x000049f7      0x26c src/uGFX/drivers/gdisp/framebuffer/gdisp_lld_framebuffer.o
 
 .debug_info     0x00000000     0xd389
  .debug_info    0x00000000       0x66 src/Demo/startup.o

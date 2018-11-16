@@ -29,19 +29,7 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=6046;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2Fmain.c;0;4
-FILE_NAME_1=939;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FDrivers%2Fbcm2835_intc.h;0;4
-FILE_NAME_2=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FDrivers%2Finterrupts.c;0;4
-FILE_NAME_3=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FDrivers%2Finterrupts.h;0;4
-FILE_NAME_4=50171;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FDrivers%2Fbcm2835.h;0;4
-FILE_NAME_5=3593;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FTasks%2FdisplayTask.c;0;4
-FILE_NAME_6=1213;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FWiFi%2Frpi_cc3100_port.c;0;4
-FILE_NAME_7=982;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FWiFi%2Frpi_cc3100_port.h;0;4
-FILE_NAME_8=1897;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FWiFi%2Fuser.h;0;4
-FILE_NAME_9=504;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2FTasks%2FwifiTask.c;0;4
-FILE_NAME_10=16378;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FCC3100%2Fsimplelink%2Fsource%2Fdevice.c;0;4
-FILE_NAME_11=1377;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FCC3100%2Fsimplelink%2Fsource%2Fdriver.h;0;4
-FILE_NAME_12=13835;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FCC3100%2Fsimplelink%2Finclude%2Fdevice.h;0;4
+FILE_NAME_0=4981;C;0;EUTF-8;1;1;0;%2Fhome%2Fmacload1%2FRPi%2FBareMetal%2FRPi_FreeRTOS-ugfx%2Fsrc%2FDemo%2Fmain.c;0;4
 
 [build-menu]
 NF_00_LB=_Make
@@ -51,7 +39,7 @@ NF_01_LB=Make (eigenes _Target)...
 NF_01_CM=make
 NF_01_WD=/home/macload1/RPi/BareMetal/RPi_FreeRTOS-ugfx
 EX_00_LB=_Execute
-EX_00_CM=sudo /home/macload1/RPi/BareMetal/usbboot/rpiboot -d /home/macload1/RPi/BareMetal/RPi_FreeRTOS-ugfx/SDCard/
+EX_00_CM=sudo /home/macload1/RPi/usbboot/rpiboot -d /home/macload1/RPi/BareMetal/RPi_FreeRTOS-ugfx/SDCard/
 EX_00_WD=
 
 [prjorg]
@@ -61,3 +49,6 @@ ignored_dirs_patterns=.*;CVS;
 ignored_file_patterns=*.o;*.obj;*.a;*.lib;*.so;*.dll;*.lo;*.la;*.class;*.jar;*.pyc;*.mo;*.gmo;
 generate_tag_prefs=0
 external_dirs=
+
+[VTE]
+last_dir=/home/macload1
